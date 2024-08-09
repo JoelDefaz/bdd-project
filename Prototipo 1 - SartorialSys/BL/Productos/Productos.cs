@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
+using Oracle.ManagedDataAccess.Client;
+using Prototipo_1___SartorialSys.BL.BD;
 
 namespace Prototipo_1___SartorialSys.Clases
 {
     internal class Productos
     {
+        static string nombreTabla = "Productos";
         internal static string[] getColores()
         {
             int i = 0;
@@ -57,43 +62,75 @@ namespace Prototipo_1___SartorialSys.Clases
             return tallas;
         }
 
+
         internal static bool registrarProducto(string[] datos)
-        {/*
-            using (conn = new SqlConnection(strConn))
+        {
+             string sql = "INSERT INTO " + nombreTabla + " (codigo_producto, ruc_proveedor_fk, descripcion, cantidad_inicial, precio_compra, precio_venta, fecha_ingreso, categoria, color,talla) " +
+    "VALUES (:codigo_producto, :ruc_proveedor_fk, :descripcion, :cantidad_inicial, :precio_compra, :precio_venta, :fecha_ingreso, :categoria, :color, :talla)";
+
+            OracleConnection connection = null;
+            try
             {
-                try
+                var dbConnection = OracleDatabaseConnection.Instance;
+                connection = dbConnection.GetConnection();
+                if (connection.State != System.Data.ConnectionState.Open)
                 {
-                    conn.Open();
-                    if (datos[4] != null)
+                    connection.Open();
+                }
+
+                // Crear el comando
+                using (var cmd = new OracleCommand(sql, connection))
+                {
+                    // Agregar parámetros a la consulta
+                    cmd.Parameters.Add(new OracleParameter("codigo_producto", datos[0]));
+                    cmd.Parameters.Add(new OracleParameter("ruc_proveedor_fk", datos[1]));
+                    cmd.Parameters.Add(new OracleParameter("descripcion", datos[2]));
+                    cmd.Parameters.Add(new OracleParameter("cantidad_inicial", datos[3]));
+                    cmd.Parameters.Add(new OracleParameter("precio_compra", datos[4]));
+                    cmd.Parameters.Add(new OracleParameter("precio_venta", datos[5]));
+
+                    DateTime fechaIngreso;
+                    if (DateTime.TryParse(datos[6], out fechaIngreso))
                     {
-                        strComm = getComando(datos);
-                    }
-                    else
-                    {
-                        strComm = getComandoNull(datos);
-                    }
-                    using (comm = new SqlCommand(strComm, conn))
-                    {
-                        if (comm.ExecuteNonQuery() == 1)
+                        OracleParameter fechaIngresoParam = new OracleParameter("fecha_ingreso", OracleDbType.Date)
                         {
-                            return true;
-                        }
-                    }
-                }
-                catch (SqlException ex)
-                {
-                    if (ex.Number == 2627 || ex.Number == 2601)
-                    {
-                        Mensajes.emitirMensaje("Producto ya registrado en el sistema " + ex.Message);
-                        return false;
+                            Value = fechaIngreso
+                        };
+                        cmd.Parameters.Add(fechaIngresoParam);
                     }
                     else
                     {
-                        Mensajes.emitirMensaje("Error base de datos" + ex.Message);
-                        return false;
+                        throw new ArgumentException("La fecha de ingreso no tiene un formato válido.");
+                    }
+
+                    cmd.Parameters.Add(new OracleParameter("categoria", datos[7]));
+                    cmd.Parameters.Add(new OracleParameter("color", datos[8]));
+                    cmd.Parameters.Add(new OracleParameter("talla", datos[9]));
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected == 1)
+                    {
+                        Mensajes.emitirMensaje("Producto registrado con éxito");
+                        return true;
                     }
                 }
-            }*/
+            }
+            catch (OracleException ex)
+            {
+                Mensajes.emitirMensaje($"Error de base de datos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Mensajes.emitirMensaje($"Error: {ex.Message}");
+            }
+            finally
+            {
+                // Cerrar la conexión en el bloque finally para asegurarse de que se cierre
+                if (connection != null && connection.State == System.Data.ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
             return false;
         }
 
@@ -216,52 +253,54 @@ namespace Prototipo_1___SartorialSys.Clases
             return (stockACtual, hayStock);
         }
 
-        internal static string[] datosProducto(string text)
-        {/*
-            string[] datos = new string[10];
-            using (conn = new SqlConnection(strConn))
+        internal static string[] datosProducto(string ruc)
+        {
+            string[] datosProductos = new string[10];
+            string query = "SELECT * FROM " + nombreTabla + " WHERE codigo_producto = '" + ruc + "'";
+            try
             {
-                conn.Open();
-                strComm = getComandoBusqueda(text);
-                using (comm = new SqlCommand(strComm, conn))
+                var dbConnection = OracleDatabaseConnection.Instance;
+                var connection = dbConnection.GetConnection();
+
+                using (var cmd = new OracleCommand(query, connection))
                 {
-                    try
+                    // Usar un adaptador para llenar un DataTable
+                    using (var adapter = new OracleDataAdapter(cmd))
                     {
-                        SqlDataReader rdr = comm.ExecuteReader();
-                        rdr.Read();
-                        if (!rdr.GetBoolean(10))
+                        DataTable clientes = new DataTable();
+                        adapter.Fill(clientes);
+                        if (clientes.Rows.Count > 0)
                         {
-                            Mensajes.emitirMensaje("Producto no registrado");
-                            return null;
-                        }
-                        if (rdr.HasRows)
-                        {
-                            datos[0] = rdr.GetString(0);
-                            datos[1] = rdr.GetString(1);
-                            datos[2] = rdr.GetString(2);
-                            datos[3] = rdr.GetString(3);
-                            datos[4] = rdr.GetString(4);
-                            datos[5] = rdr.GetInt32(5).ToString();
-                            datos[6] = rdr.GetDecimal(6).ToString();
-                            datos[7] = rdr.GetDecimal(7).ToString();
-                            datos[8] = rdr.GetDateTime(8).ToString();
-                            datos[9] = rdr.GetDateTime(9).ToString();
-                        }
-                        else
-                        {
-                            Mensajes.emitirMensaje("Producto no registrado");
-                            return null;
+                            DataRow row = clientes.Rows[0];
+
+                            datosProductos[0] = row["codigo_producto"].ToString();
+                            datosProductos[1] = row["RUC_PROVEEDOR_FK"].ToString();
+                            datosProductos[2] = row["descripcion"].ToString();
+                            datosProductos[3] = row["cantidad_inicial"].ToString();
+                            datosProductos[4] = row["precio_compra"].ToString();
+                            datosProductos[5] = row["precio_venta"].ToString();
+                            datosProductos[6] = row["fecha_ingreso"].ToString();
+                            datosProductos[7] = row["categoria"].ToString();
+                            datosProductos[8] = row["color"].ToString();
+                            datosProductos[9] = row["talla"].ToString();
                         }
                     }
-                    catch (Exception e)
-                    {
-                        Mensajes.emitirMensaje("Error al consultar");
-                        return null;
-                    }
-                    return datos;
                 }
-            }*/
-            return null;
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine($"Error de base de datos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                dbConnection.CloseConnection();
+            }
+            return datosProductos;
         }
 
         private static string getComandoBusqueda(string text)
@@ -272,52 +311,126 @@ namespace Prototipo_1___SartorialSys.Clases
         }
 
         internal static bool actualizarPrecioCompra(string precio_compra, string codigo)
-        {/*
-            if (!Mensajes.confirmarAccion("¿Está seguro de actualizar este dato?"))
-            {
-                return false;
-            }
-            using (conn = new SqlConnection(strConn))
-            {
-                conn.Open();
-                strComm = "UPDATE productos SET precio_compra = '" + precio_compra + "' WHERE codigo_producto = '" + codigo + "';";
+        {
+            string query = "UPDATE " + nombreTabla + " SET precio_compra = :precio_compra WHERE codigo_producto = :codigo";
 
-                using (comm = new SqlCommand(strComm, conn))
+            try
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                var connection = dbConnection.GetConnection();
+
+                using (var cmd = new OracleCommand(query, connection))
                 {
-                    if (comm.ExecuteNonQuery() == 1)
+                    cmd.Parameters.Add(new OracleParameter("precio_compra", precio_compra));
+                    cmd.Parameters.Add(new OracleParameter("codigo", codigo));
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
                     {
-                        Mensajes.emitirMensaje("Precio de compra actualizado con éxito”");
+                        Mensajes.emitirMensaje("Producto actualizado correctamente.");
+                        return true;
                     }
                 }
-            }*/
-            return true;
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine($"Error de base de datos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                dbConnection.CloseConnection();
+            }
+            return false;
         }
 
         internal static bool actualizarPrecioVenta(string precio_venta, string codigo)
-        {/*
-            if (!Mensajes.confirmarAccion("¿Está seguro de actualizar este dato?"))
+        {
+            string query = "UPDATE " + nombreTabla + " SET precio_venta = :precio_venta WHERE codigo_producto = :codigo";
+
+            try
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                var connection = dbConnection.GetConnection();
+
+                using (var cmd = new OracleCommand(query, connection))
+                {
+                    cmd.Parameters.Add(new OracleParameter("precio_venta", precio_venta));
+                    cmd.Parameters.Add(new OracleParameter("codigo", codigo));
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
+                    {
+                        Mensajes.emitirMensaje("Producto actualizado correctamente.");
+                        return true;
+                    }
+                }
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine($"Error de base de datos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                dbConnection.CloseConnection();
+            }
+            return false;
+        }
+
+        internal static bool darDeBaja(string codigo)
+        {
+            if (!Mensajes.confirmarAccion("¿Está seguro de eliminar a este  producto?"))
             {
                 return false;
             }
-            using (conn = new SqlConnection(strConn))
+            string query = "DELETE FROM " + nombreTabla + " WHERE codigo_producto = :codigo";
+            try
             {
-                conn.Open();
-                strComm = "UPDATE productos SET precio_venta = '" + precio_venta + "' WHERE codigo_producto = '" + codigo + "';";
-
-                using (comm = new SqlCommand(strComm, conn))
+                var dbConnection = OracleDatabaseConnection.Instance;
+                var connection = dbConnection.GetConnection();
+                using (var cmd = new OracleCommand(query, connection))
                 {
-                    if (comm.ExecuteNonQuery() == 1)
+                    cmd.Parameters.Add(new OracleParameter("codigo_producto", codigo));
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
                     {
-                        Mensajes.emitirMensaje("Precio de venta actualizado con éxito”");
+                        Mensajes.emitirMensaje("Producto eliminado correctamente.");
+                        return true;
                     }
                 }
-            }*/
-            return true;
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine($"Error de base de datos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                // Cerrar la conexión manualmente
+                var dbConnection = OracleDatabaseConnection.Instance;
+                dbConnection.CloseConnection();
+            }
+            return false;
         }
 
-        internal static bool darDeBaja(string text)
+        internal static string getNombreTabla()
         {
-            throw new NotImplementedException();
+            return nombreTabla;
         }
     }
 }

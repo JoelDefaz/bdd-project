@@ -8,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Oracle.ManagedDataAccess.Client;
+using Prototipo_1___SartorialSys.BL.BD;
+using Prototipo_1___SartorialSys.BL.Proveedor;
 using Prototipo_1___SartorialSys.Clases;
 
 namespace Prototipo_1___SartorialSys.Formularios
@@ -17,154 +20,49 @@ namespace Prototipo_1___SartorialSys.Formularios
         public frmProductos()
         {
             InitializeComponent();
-            agregarOpciones();
-        }
-
-        private void agregarOpciones()
-        {
-            string[] colores = Productos.getColores();
-            foreach (string color in colores) { 
-                cmbColorRegistrar.Items.Add(color);
-            }
-            string[] tallas = Productos.getTallas();
-            foreach (string talla in tallas)
-            {
-                cmbTallaRegistrar.Items.Add(talla);
-            }
-        }
-
-        private void txtCodigoRegistrar_Leave(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtDescripcionRegistrar_Leave(object sender, EventArgs e)
-        {/*
-            if (txtDescripcionRegistrar.Text != "" && !Validaciones.esValidoDescripcion(txtDescripcionRegistrar.Text))
-            {
-                Mensajes.emitirMensaje("Datos incorrectos");
-                txtDescripcionRegistrar.Text = "";
-            }*/
-        }
-
-        private void cmbCategoriaRegistrar_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if(cmbCategoriaRegistrar.SelectedIndex != 0)
-            {
-                cmbTallaRegistrar.Enabled = false;
-                txtPrecioVenta.Enabled = false;
-            }
-            else
-            {
-                cmbTallaRegistrar.Enabled = true;
-                txtPrecioVenta.Enabled = false;
-            }
-        }
-
-        private void txtRUCProveedorRegistrar_Leave(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void txtCantidadInicialRegistrar_Leave(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtPrecioCompraRegistrar_Leave(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtPrecioVenta_Leave(object sender, EventArgs e)
-        {
-
         }
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
             string[] datos = getDatos();
 
-            if (!Productos.registrarProducto(datos))
+            if (Productos.registrarProducto(datos))
             {
-                Mensajes.emitirMensaje("Error al registrar el producto");
-                return;
+                limpiarRegistro();
             }
-            Mensajes.emitirMensaje("Producto registrado con éxito");
         }
 
         private string[] getDatos()
         {
             string[] datos = new string[10];
             datos[0] = txtCodigoRegistrar.Text;
-            datos[1] = txtDescripcionRegistrar.Text;
-            datos[2] = cmbCategoriaRegistrar.Text;
-            datos[3] = cmbColorRegistrar.Text;
-            if(cmbCategoriaRegistrar.Text == "Prenda")
-            {
-                datos[4] = cmbTallaRegistrar.Text;
-                datos[8] = txtPrecioVenta.Text;
-            }
-            else
-            {
-                datos[4] = null;
-                datos[8] = null;
-            }
-            datos[5] = txtRUCProveedorRegistrar.Text;
-            datos[6] = txtCantidadInicialRegistrar.Text;
-            datos[7] = txtPrecioCompraRegistrar.Text;
+            datos[1] = txtRUCProveedorRegistrar.Text;
+            datos[2] = txtDescripcionRegistrar.Text;
+            datos[3] = txtCantidadInicialRegistrar.Text;
+            datos[4] = txtPrecioCompraRegistrar.Text;
+            datos[5] = txtPrecioVentaRegistrar.Text;
             DateTime fechaSeleccionada = dtpFechaRegistro.Value;
-            datos[9] = fechaSeleccionada.ToString("yyyy-MM-dd");
+            datos[6] = fechaSeleccionada.ToString("yyyy-MM-dd");
+            datos[7] = cmbCategoriaRegistrar.Text;
+            datos[8] = cmbColorRegistrar.Text;
+            datos[9] = cmbTallaRegistrar.Text;
             return datos;
-        }
-
-        private void btnBuscar_Click(object sender, EventArgs e)
-        {
-            if(txtParametroConsulta.Text == "")
-            {
-                Mensajes.emitirMensaje("El código del producto no puede estar vacío – Por favor llenar");
-                return;
-            }
-
-            string[] datos = Productos.datosProducto(txtParametroConsulta.Text);
-            if(datos != null)
-            {
-                txtCodigoBusqueda.Text = txtParametroConsulta.Text;
-                txtDescripcionConsulta.Text = datos[0];
-                txtCategoriaConsulta.Text = datos[1];
-                txtColorConsulta.Text= datos[2];
-                txtTallaConssulta.Text = datos[3];
-                txtRUCProveedorConsulta.Text = datos[4];
-                txtStockConsulta.Text = datos[5];
-                txtPrecioCompraConsulta.Text = datos[6];
-                txtPrecioVentaConsulta.Text = datos[7];
-                txtFechaIngresoConsulta.Text = datos[8];
-                txtFechaActualizacionConsulta.Text = datos[9];
-            }
         }
 
         private void btnBuscarActualizar_Click(object sender, EventArgs e)
         {
-            if (txtParametroActualizar.Text == "")
-            {
-                Mensajes.emitirMensaje("El código del producto no puede estar vacío – Por favor llenar");
-                return;
-            }
-
-            string[] datos = Productos.datosProducto(txtParametroActualizar.Text);
+            string[] datos = Productos.datosProducto(txtCodigoParaActualizar.Text);
             if (datos != null)
             {
-                txtCodigoActualizar.Text = txtParametroActualizar.Text;
-                txtDescripcionActualizar.Text = datos[0];
-                txtCategoriaActualizar.Text = datos[1];
-                txtColorActualizar.Text = datos[2];
-                txtTallaActualizar.Text = datos[3];
-                txtRUCProveedorActualizar.Text = datos[4];
-                txtStockActualizar.Text = datos[5];
-                txtPrecioCompraActualizar.Text = datos[6];
-                txtPrecioVentaActualizar.Text = datos[7];
-                txtFechaIngresoActualizar.Text = datos[8];
-                txtUltimaActualizacionACtualizar.Text = datos[9];
+                txtRUCProveedorActualizar.Text = datos[1];
+                txtDescripcionActualizar.Text = datos[2];
+                txtStockActualizar.Text = datos[3];
+                txtPrecioCompraActualizar.Text = datos[4];
+                txtPrecioVentaActualizar.Text = datos[5];
+                txtFechaIngresoActualizar.Text = datos[6];
+                txtCategoriaActualizar.Text = datos[7];
+                txtColorActualizar.Text = datos[8];
+                txtTallaActualizar.Text = datos[9];
             }
         }
 
@@ -196,14 +94,10 @@ namespace Prototipo_1___SartorialSys.Formularios
         {
             if (ckbPrecioCompra.Checked)
             {
-                if (Productos.actualizarPrecioCompra(txtPrecioCompraActualizar.Text, txtCodigoActualizar.Text))
+                if (Productos.actualizarPrecioCompra(txtPrecioCompraActualizar.Text, txtCodigoParaActualizar.Text))
                 {
                     btnBuscarActualizar.PerformClick();
                     ckbPrecioCompra.Checked = false;
-                }
-                else
-                {
-                    Mensajes.emitirMensaje("Error al actualizar este dato”");
                 }
             }
         }
@@ -212,45 +106,34 @@ namespace Prototipo_1___SartorialSys.Formularios
         {
             if (ckbPrecioVenta.Checked)
             {
-                if (Productos.actualizarPrecioVenta(txtPrecioVentaActualizar.Text, txtCodigoActualizar.Text))
+                if (Productos.actualizarPrecioVenta(txtPrecioVentaActualizar.Text, txtCodigoParaActualizar.Text))
                 {
                     btnBuscarActualizar.PerformClick();
                     ckbPrecioVenta.Checked = false;
-                }
-                else
-                {
-                    Mensajes.emitirMensaje("Error al actualizar este dato”");
                 }
             }
         }
 
         private void btnBuscarDarDeBaja_Click(object sender, EventArgs e)
         {
-            if (txtParametroDarDeBaja.Text == "")
-            {
-                Mensajes.emitirMensaje("El código del producto no puede estar vacío – Por favor llenar");
-                return;
-            }
-            string[] datos = Productos.datosProducto(txtParametroDarDeBaja.Text);
+            string[] datos = Productos.datosProducto(txtCodigoParaEliminar.Text);
             if (datos != null)
             {
-                txtCodigoDarDeBaja.Text = txtParametroDarDeBaja.Text;
-                txtDescripcionDarDeBaja.Text = datos[0];
-                txtCategoriaDarDeBaja.Text = datos[1];
-                txtColorDarDeBaja.Text = datos[2];
-                txtTallaDarDeBaja.Text = datos[3];
-                txtRUCDarDeBaja.Text = datos[4];
-                txtStockDarDeBaja.Text = datos[5];
-                txtPrecioCompraDarBaja.Text = datos[6];
-                txtPrecioVentaDarBaja.Text = datos[7];
-                txtFechaIngresoDarBaja.Text = datos[8];
-                txtFechaActualizacionDarBaja.Text = datos[9];
+                txtRUCDarDeBaja.Text = datos[1];
+                txtDescripcionDarDeBaja.Text = datos[2];
+                txtStockDarDeBaja.Text = datos[3];
+                txtPrecioCompraDarBaja.Text = datos[4];
+                txtPrecioVentaDarBaja.Text = datos[5];
+                txtFechaIngresoDarBaja.Text = datos[6];
+                txtCategoriaDarDeBaja.Text = datos[7];
+                txtColorDarDeBaja.Text = datos[8];
+                txtTallaDarDeBaja.Text = datos[9];
             }
         }
 
         private void bntDarDeBaja_Click(object sender, EventArgs e)
         {
-            if (Productos.darDeBaja(txtParametroDarDeBaja.Text))
+            if (Productos.darDeBaja(txtCodigoParaEliminar.Text))
             {
                 limpiarDarDeBaja();
             }
@@ -258,18 +141,16 @@ namespace Prototipo_1___SartorialSys.Formularios
 
         private void limpiarDarDeBaja()
         {
-            txtParametroDarDeBaja.Text = "";
-            txtCodigoDarDeBaja.Text = "";
-            txtDescripcionDarDeBaja.Text = "";
-            txtCategoriaDarDeBaja.Text = "";
-            txtColorDarDeBaja.Text = "";
-            txtTallaDarDeBaja.Text = "";
+            txtCodigoParaEliminar.Text = "";
             txtRUCDarDeBaja.Text = "";
+            txtDescripcionDarDeBaja.Text = "";
             txtStockDarDeBaja.Text = "";
             txtPrecioCompraDarBaja.Text = "";
             txtPrecioVentaDarBaja.Text = "";
             txtFechaIngresoDarBaja.Text = "";
-            txtFechaActualizacionDarBaja.Text = "";
+            txtCategoriaDarDeBaja.Text = "";
+            txtColorDarDeBaja.Text = "";
+            txtTallaDarDeBaja.Text = "";
         }
 
         private void txtParametroConsulta_Leave(object sender, EventArgs e)
@@ -278,6 +159,81 @@ namespace Prototipo_1___SartorialSys.Formularios
         }
 
         private void txtParametroActualizar_Leave(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCancelarRegistro_Click(object sender, EventArgs e)
+        {
+            limpiarRegistro();
+        }
+
+        private void limpiarRegistro()
+        {
+            txtCodigoRegistrar.Text = "";
+            txtRUCProveedorRegistrar.Text = "";
+            txtDescripcionRegistrar.Text = "";
+            txtCantidadInicialRegistrar.Text = "";
+            txtPrecioCompraRegistrar.Text = "";
+            txtPrecioVentaRegistrar.Text = "";
+            dtpFechaRegistro.Checked = false;
+            cmbCategoriaRegistrar.SelectedIndex = -1;
+            cmbColorRegistrar.SelectedIndex = -1;
+            cmbColorRegistrar.SelectedIndex = -1;
+
+        }
+
+        private void tabClientes_Enter(object sender, EventArgs e)
+        {
+            string query = "SELECT * FROM " + Productos.getNombreTabla();
+
+            try
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                var connection = dbConnection.GetConnection();
+
+                using (var cmd = new OracleCommand(query, connection))
+                {
+                    // Usar un adaptador para llenar un DataTable
+                    using (var adapter = new OracleDataAdapter(cmd))
+                    {
+                        DataTable clientes = new DataTable();
+                        adapter.Fill(clientes);
+                        dgtvProductos.DataSource = clientes;
+                    }
+                }
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine($"Error de base de datos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                dbConnection.CloseConnection();
+            }
+        }
+
+        private void btnRefrescar_Click(object sender, EventArgs e)
+        {
+            tabClientes_Enter(sender, e);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            limpiarDarDeBaja();
+        }
+
+        private void groupBox6_Enter(object sender, EventArgs e)
         {
 
         }
