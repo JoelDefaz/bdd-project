@@ -24,12 +24,6 @@ namespace Prototipo_1___SartorialSys.Formularios
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            if (!Validaciones.esValidoCodigoProducto(txtCodigoProducto.Text))
-            {
-                Mensajes.emitirMensaje("Código de producto no válido");
-                txtCodigoProducto.Text = "";
-                this.Close();
-            }
             if (!Productos.buscarProducto(i,txtCodigoProducto.Text,listaProductos,txtCantidad.Text))
             {
                 txtCodigoProducto.Text = "";

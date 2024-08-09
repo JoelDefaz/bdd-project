@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Oracle.ManagedDataAccess.Client;
+using Prototipo_1___SartorialSys.BL.BD;
 
 namespace Prototipo_1___SartorialSys.Clases
 {
@@ -14,6 +17,7 @@ namespace Prototipo_1___SartorialSys.Clases
         static string strComm = null;
         static SqlConnection conn = null;
         static SqlCommand comm = null;
+        static string nombreTabla = "clientes_quito";
         internal static string[] buscarCliente(string parametroBusqueda)
         {
             string[] datosCliente = new string[6];
@@ -120,43 +124,64 @@ namespace Prototipo_1___SartorialSys.Clases
 
         internal static bool registrarCliente(string[] datosCliente)
         {
-            string cedula = "'" + datosCliente[0] + "'";
-            string nombres = "'" + datosCliente[1] + "'";
-            string apellidos = "'" + datosCliente[2] + "'";
-            string direccion = "'" + datosCliente[3] + "'";
-            string telefono = "'" + datosCliente[4] + "'";
-            string correo = "'" + datosCliente[5] + "'";
-            using (conn = new SqlConnection(strConn))
+            string sql = "INSERT INTO " + nombreTabla + " (cedula_cli, nombres, apellidos, dir_domiciliaria, telefono, email, canton) " +
+                "VALUES (:cedula, :nombres, :apellidos, :direccion, :telefono, :correo, :canton)";
+
+            OracleConnection connection = null;
+            try
             {
-                    try
+                // Obtener la instancia del Singleton
+                var dbConnection = OracleDatabaseConnection.Instance;
+
+                // Obtener la conexión
+                connection = dbConnection.GetConnection();
+
+                // Asegurarse de que la conexión esté abierta
+                if (connection.State != System.Data.ConnectionState.Open)
+                {
+                    connection.Open();
+                }
+
+                // Crear el comando
+                using (var cmd = new OracleCommand(sql, connection))
+                {
+                    // Agregar parámetros a la consulta
+                    cmd.Parameters.Add(new OracleParameter("cedula", datosCliente[0]));
+                    cmd.Parameters.Add(new OracleParameter("nombres", datosCliente[1]));
+                    cmd.Parameters.Add(new OracleParameter("apellidos", datosCliente[2]));
+                    cmd.Parameters.Add(new OracleParameter("direccion", datosCliente[3]));
+                    cmd.Parameters.Add(new OracleParameter("telefono", datosCliente[4]));
+                    cmd.Parameters.Add(new OracleParameter("correo", datosCliente[5]));
+                    cmd.Parameters.Add(new OracleParameter("canton", datosCliente[6]));
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected == 1)
                     {
-                        conn.Open();
-                        strComm = "INSERT INTO clientes VALUES(" + cedula + "," + nombres + "," + apellidos + "," + direccion + "," + telefono + "," + correo + ",DEFAULT)";
-                        using (comm = new SqlCommand(strComm, conn))
-                        if (comm.ExecuteNonQuery() == 1)
-                        {
-                            Mensajes.emitirMensaje("Cliente registrado con éxito");
-                            return true;
-                        }
+                        Mensajes.emitirMensaje("Dato registrado con éxito");
+                        return true;
                     }
-                  catch (SqlException ex)
-                  {
-                         // Se captura la excepción específica de SQL Server
-                         if (ex.Number == 2627 || ex.Number == 2601)
-                         {
-                        // Manejar el error de duplicado
-                        Mensajes.emitirMensaje("Cliente ya registrado en el sistema");
-                                return false;
-                         }
-                         else
-                         {
-                        Mensajes.emitirMensaje("Error de base de datos");
-                        return false;
-                         }
-                   }                  
+                }
+            }
+            catch (OracleException ex)
+            {
+                Mensajes.emitirMensaje($"Error de base de datos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Mensajes.emitirMensaje($"Error: {ex.Message}");
+            }
+            finally
+            {
+                // Cerrar la conexión en el bloque finally para asegurarse de que se cierre
+                if (connection != null && connection.State == System.Data.ConnectionState.Open)
+                {
+                    connection.Close();
+                }
             }
             return false;
         }
+
+
 
         internal static bool darDeAlta(string parametroBusqueda)
         {
@@ -305,6 +330,11 @@ namespace Prototipo_1___SartorialSys.Clases
                 }
             }
             return true;
+        }
+
+        public static string getNombreTabla()
+        {
+            return nombreTabla;
         }
     }
 }

@@ -61,11 +61,6 @@ namespace Prototipo_1___SartorialSys
         private void btnInsertar_Click(object sender, EventArgs e)
         {
             string[] datosUsuario = { txtUsuarioRegistrar.Text, txtContraseñaRegistrar.Text, txtCedulaEmpleadoRegistrar.Text, (string)comboBoxRolRegistrar.SelectedItem};
-            if (!ValidarCedula.estanLosCamposLlenos(datosUsuario))
-            {
-                Mensajes.emitirMensaje("Por favor llenar los campos");
-                return;
-            }
             if (Usuario.registrarUsuario(datosUsuario))
             {
                 limpiarConsola();
@@ -280,12 +275,7 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtContraseñaRegistrar.Text != "")
             {
-                if (!Validaciones.validarContraseña(txtContraseñaRegistrar.Text))
-                {
-                    Mensajes.emitirMensaje("Contrasña equivocada");
-                    txtContraseñaRegistrar.Text = "";
-                    txtContraseñaRegistrar.Focus();
-                }
+
             }
         }
 
@@ -293,12 +283,6 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtCedulaEmpleadoRegistrar.Text != "")
             {
-                if (!ValidarCedula.validarCedula(txtCedulaEmpleadoRegistrar.Text))
-                {
-                    Mensajes.emitirMensaje("Número de Cédula invalida");
-                    txtCedulaEmpleadoRegistrar.Text = "";
-                    txtCedulaEmpleadoRegistrar.Focus();
-                }
             }
         }
 
@@ -306,12 +290,6 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtCedulaActualizar.Text != "")
             {
-                if (!ValidarCedula.validarCedula(txtCedulaActualizar.Text))
-                {
-                    Mensajes.emitirMensaje("Número de Cédula invalida");
-                    txtCedulaActualizar.Text = "";
-                    txtCedulaActualizar.Focus();
-                }
             }
         }
 
@@ -319,12 +297,6 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtContraseñaActualizar.Text != "")
             {
-                if (!Validaciones.validarContraseña(txtContraseñaActualizar.Text))
-                {
-                    Mensajes.emitirMensaje("Contrasña equivocada");
-                    txtContraseñaActualizar.Text = "";
-                    txtContraseñaActualizar.Focus();
-                }
             }
         }
 
@@ -332,12 +304,6 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtCedulaEmpleadoBuscar.Text != "")
             {
-                if (!ValidarCedula.validarCedula(txtCedulaEmpleadoBuscar.Text))
-                {
-                    Mensajes.emitirMensaje("Número de Cédula invalida");
-                    txtCedulaEmpleadoBuscar.Text = "";
-                    txtCedulaEmpleadoBuscar.Focus();
-                }
             }
         }
 
@@ -345,12 +311,6 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtCedulaEmpleadoDarDeBaja.Text != "")
             {
-                if (!ValidarCedula.validarCedula(txtCedulaEmpleadoDarDeBaja.Text))
-                {
-                    Mensajes.emitirMensaje("Número de Cédula invalida");
-                    txtCedulaEmpleadoDarDeBaja.Text = "";
-                    txtCedulaEmpleadoDarDeBaja.Focus();
-                }
             }
         }
     }

@@ -44,7 +44,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnlHome = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnLogout = new FontAwesome.Sharp.IconButton();
             this.btnBarras = new FontAwesome.Sharp.IconButton();
             this.pnlEscritorio = new System.Windows.Forms.Panel();
             this.lblFecha = new System.Windows.Forms.Label();
@@ -123,7 +122,7 @@
             this.btnProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnProductos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.btnProductos.IconChar = FontAwesome.Sharp.IconChar.Shirt;
+            this.btnProductos.IconChar = FontAwesome.Sharp.IconChar.Tshirt;
             this.btnProductos.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.btnProductos.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnProductos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -144,7 +143,7 @@
             this.btnAdministracion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdministracion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdministracion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.btnAdministracion.IconChar = FontAwesome.Sharp.IconChar.UsersCog;
+            this.btnAdministracion.IconChar = FontAwesome.Sharp.IconChar.UsersGear;
             this.btnAdministracion.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.btnAdministracion.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnAdministracion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -207,7 +206,7 @@
             this.btnPedidos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPedidos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPedidos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.btnPedidos.IconChar = FontAwesome.Sharp.IconChar.PenClip;
+            this.btnPedidos.IconChar = FontAwesome.Sharp.IconChar.PenAlt;
             this.btnPedidos.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.btnPedidos.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnPedidos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -250,7 +249,7 @@
             this.btnClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClientes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClientes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.btnClientes.IconChar = FontAwesome.Sharp.IconChar.AddressBook;
+            this.btnClientes.IconChar = FontAwesome.Sharp.IconChar.ContactBook;
             this.btnClientes.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.btnClientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -289,7 +288,6 @@
             // 
             this.pnlHome.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(189)))), ((int)(((byte)(165)))));
             this.pnlHome.Controls.Add(this.label1);
-            this.pnlHome.Controls.Add(this.btnLogout);
             this.pnlHome.Controls.Add(this.btnBarras);
             this.pnlHome.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHome.Location = new System.Drawing.Point(213, 0);
@@ -303,29 +301,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(106, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 20);
+            this.label1.Size = new System.Drawing.Size(120, 25);
             this.label1.TabIndex = 4;
             this.label1.Text = "Bienvenido: ";
-            // 
-            // btnLogout
-            // 
-            this.btnLogout.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnLogout.FlatAppearance.BorderSize = 0;
-            this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLogout.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.btnLogout.IconChar = FontAwesome.Sharp.IconChar.ArrowRightFromBracket;
-            this.btnLogout.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.btnLogout.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnLogout.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLogout.Location = new System.Drawing.Point(1099, 0);
-            this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Rotation = 180D;
-            this.btnLogout.Size = new System.Drawing.Size(58, 80);
-            this.btnLogout.TabIndex = 3;
-            this.btnLogout.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLogout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnLogout.UseVisualStyleBackColor = true;
-            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
             // btnBarras
             // 
@@ -366,7 +344,7 @@
             this.lblFecha.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.lblFecha.Location = new System.Drawing.Point(243, 235);
             this.lblFecha.Name = "lblFecha";
-            this.lblFecha.Size = new System.Drawing.Size(133, 23);
+            this.lblFecha.Size = new System.Drawing.Size(167, 28);
             this.lblFecha.TabIndex = 1;
             this.lblFecha.Text = "Fecha Actual";
             // 
@@ -380,7 +358,7 @@
             this.lblHora.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.lblHora.Location = new System.Drawing.Point(198, 179);
             this.lblHora.Name = "lblHora";
-            this.lblHora.Size = new System.Drawing.Size(231, 44);
+            this.lblHora.Size = new System.Drawing.Size(294, 56);
             this.lblHora.TabIndex = 0;
             this.lblHora.Text = "Hora Actual";
             this.lblHora.Click += new System.EventHandler(this.lblHora_Click);
@@ -416,7 +394,6 @@
         private System.Windows.Forms.Panel pnlHome;
         private System.Windows.Forms.Panel pnlEscritorio;
         private FontAwesome.Sharp.IconButton btnBarras;
-        private FontAwesome.Sharp.IconButton btnLogout;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel2;
         private FontAwesome.Sharp.IconButton btnAdministracion;

@@ -129,18 +129,15 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BL\BD\ConexionBaseDeDatos.cs" />
-    <Compile Include="BL\BD\OracleDatabaseConnection.cs" />
+    <Compile Include="BD\ConexionBaseDeDatos.cs" />
+    <Compile Include="BD\OracleDatabaseConnection.cs" />
     <Compile Include="BL\Clientes\Cliente.cs" />
     <Compile Include="BL\Empleados\Empleados.cs" />
     <Compile Include="BL\Inventario\Inventario.cs" />
-    <Compile Include="BL\Administracion\Login.cs" />
     <Compile Include="BL\Administracion\Mensajes.cs" />
     <Compile Include="BL\Administracion\Parametros.cs" />
     <Compile Include="BL\Productos\Productos.cs" />
     <Compile Include="BL\Administracion\Usuario.cs" />
-    <Compile Include="BL\Administracion\Validaciones.cs" />
-    <Compile Include="BL\Administracion\ValidarCedula.cs" />
     <Compile Include="BL\Facturacion\Ventas.cs" />
     <Compile Include="UI\Facturacion\frmAgregarProducto.cs">
       <SubType>Form</SubType>
@@ -153,12 +150,6 @@
     </Compile>
     <Compile Include="UI\Administracion\frmMenu.Designer.cs">
       <DependentUpon>frmMenu.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Administracion\frmLogin.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Administracion\frmLogin.Designer.cs">
-      <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Inventario\frmInventario.cs">
       <SubType>Form</SubType>
@@ -227,9 +218,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Administracion\frmMenu.resx">
       <DependentUpon>frmMenu.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Administracion\frmLogin.resx">
-      <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Inventario\frmInventario.resx">
       <DependentUpon>frmInventario.cs</DependentUpon>

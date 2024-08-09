@@ -35,11 +35,7 @@ namespace Prototipo_1___SartorialSys.Formularios
 
         private void txtCodigoRegistrar_Leave(object sender, EventArgs e)
         {
-            if (txtCodigoRegistrar.Text != "" && !Validaciones.esValidoCodigoProducto(txtCodigoRegistrar.Text))
-            {
-                Mensajes.emitirMensaje("Datos incorrectos");
-                txtCodigoRegistrar.Text = "";
-            }
+
         }
 
         private void txtDescripcionRegistrar_Leave(object sender, EventArgs e)
@@ -67,49 +63,28 @@ namespace Prototipo_1___SartorialSys.Formularios
 
         private void txtRUCProveedorRegistrar_Leave(object sender, EventArgs e)
         {
-            if (txtRUCProveedorRegistrar.Text != "" && !Validaciones.esRUCValido(txtRUCProveedorRegistrar.Text))
-            {
-                Mensajes.emitirMensaje("Datos incorrectos");
-                txtRUCProveedorRegistrar.Text = "";
-            }
+            
         }
 
         private void txtCantidadInicialRegistrar_Leave(object sender, EventArgs e)
         {
-            if (txtCantidadInicialRegistrar.Text != "" && !Validaciones.esCantidadValida(txtCantidadInicialRegistrar.Text))
-            {
-                Mensajes.emitirMensaje("Datos incorrectos");
-                txtCantidadInicialRegistrar.Text = "";
-            }
+
         }
 
         private void txtPrecioCompraRegistrar_Leave(object sender, EventArgs e)
         {
-            if (txtPrecioCompraRegistrar.Text != "" && !Validaciones.esCantidadDecimalValida(txtPrecioCompraRegistrar.Text))
-            {
-                Mensajes.emitirMensaje("Datos incorrectos");
-                txtPrecioCompraRegistrar.Text = "";
-            }
+
         }
 
         private void txtPrecioVenta_Leave(object sender, EventArgs e)
         {
-            if (txtPrecioVenta.Text != "" && !Validaciones.esCantidadDecimalValida(txtPrecioCompraRegistrar.Text))
-            {
-                Mensajes.emitirMensaje("Datos incorrectos");
-                txtPrecioVenta.Text = "";
-            }
+
         }
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
             string[] datos = getDatos();
-            if (!Validaciones.estanLlenosLosCampos(datos))
-            {
-                Mensajes.emitirMensaje("Los datos no pueden estar vacíos - Por favor Llenar");
-                txtPrecioVenta.Text = "";
-                return;
-            }
+
             if (!Productos.registrarProducto(datos))
             {
                 Mensajes.emitirMensaje("Error al registrar el producto");
@@ -150,10 +125,7 @@ namespace Prototipo_1___SartorialSys.Formularios
                 Mensajes.emitirMensaje("El código del producto no puede estar vacío – Por favor llenar");
                 return;
             }
-            if (!Validaciones.esValidoCodigoProducto(txtParametroConsulta.Text))
-            {
-                Mensajes.emitirMensaje("Código del producto equivocado – Vuelva a ingresar");
-            }
+
             string[] datos = Productos.datosProducto(txtParametroConsulta.Text);
             if(datos != null)
             {
@@ -178,10 +150,7 @@ namespace Prototipo_1___SartorialSys.Formularios
                 Mensajes.emitirMensaje("El código del producto no puede estar vacío – Por favor llenar");
                 return;
             }
-            if (!Validaciones.esValidoCodigoProducto(txtParametroActualizar.Text))
-            {
-                Mensajes.emitirMensaje("Código del producto equivocado – Vuelva a ingresar");
-            }
+
             string[] datos = Productos.datosProducto(txtParametroActualizar.Text);
             if (datos != null)
             {
@@ -262,10 +231,6 @@ namespace Prototipo_1___SartorialSys.Formularios
                 Mensajes.emitirMensaje("El código del producto no puede estar vacío – Por favor llenar");
                 return;
             }
-            if (!Validaciones.esValidoCodigoProducto(txtParametroDarDeBaja.Text))
-            {
-                Mensajes.emitirMensaje("Código del producto equivocado – Vuelva a ingresar");
-            }
             string[] datos = Productos.datosProducto(txtParametroDarDeBaja.Text);
             if (datos != null)
             {
@@ -309,28 +274,12 @@ namespace Prototipo_1___SartorialSys.Formularios
 
         private void txtParametroConsulta_Leave(object sender, EventArgs e)
         {
-            if (txtParametroConsulta.Text != "")
-            {
-                if (!Validaciones.esValidoCodigoProducto(txtParametroConsulta.Text))
-                {
-                    Mensajes.emitirMensaje("Número de teléfono equivocado");
-                    txtParametroConsulta.Text = "";
-                    txtParametroConsulta.Focus();
-                }
-            }
+
         }
 
         private void txtParametroActualizar_Leave(object sender, EventArgs e)
         {
-            if (txtParametroActualizar.Text != "")
-            {
-                if (!Validaciones.esValidoCodigoProducto(txtParametroActualizar.Text))
-                {
-                    Mensajes.emitirMensaje("Número de teléfono equivocado");
-                    txtParametroActualizar.Text = "";
-                    txtParametroActualizar.Focus();
-                }
-            }
+
         }
     }
 }

@@ -207,12 +207,6 @@ namespace Prototipo_1___SartorialSys
         private void btnRegistrarVenta_Click(object sender, EventArgs e)
         {
             string[] datos = getDatoVenta();
-            if (!Validaciones.estanLlenosLosCampos(datos))
-            {
-                Mensajes.emitirMensaje("Los datos no pueden estar vacíos - Por favor Llenar");
-                limpiarRegistro();
-                return;
-            }
             string[,] items = getItems();
             if (!Ventas.registrarVenta(datos,items))
             {
@@ -282,12 +276,6 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtCedulaRegistrar.Text != "")
             {
-                if (!ValidarCedula.validarCedula(txtCedulaRegistrar.Text))
-                {
-                    Mensajes.emitirMensaje("Número de Cédula inválida");
-                    txtCedulaRegistrar.Text = "";
-                    txtCedulaRegistrar.Focus();
-                }
             }
         }
 
@@ -425,11 +413,6 @@ namespace Prototipo_1___SartorialSys
                 Mensajes.emitirMensaje("El número de factura no puede estar en blanco – Por favor llenar");
                 return;
             }
-            if (!Validaciones.esValidoElNumeroDeFactura(txtNumeroFacturaConsultar.Text))
-            {
-                Mensajes.emitirMensaje("Número de factura equivocada – vuelva a ingresar");
-                return;
-            }
         }
 
         private void txtNFacturaBuscarAnular_Leave(object sender, EventArgs e)
@@ -437,11 +420,6 @@ namespace Prototipo_1___SartorialSys
             if (txtNumeroFacturaConsultar.Text == "")
             {
                 Mensajes.emitirMensaje("El número de factura no puede estar en blanco – Por favor llenar");
-                return;
-            }
-            if (!Validaciones.esValidoElNumeroDeFactura(txtNumeroFacturaConsultar.Text))
-            {
-                Mensajes.emitirMensaje("Número de factura equivocada – vuelva a ingresar");
                 return;
             }
         }

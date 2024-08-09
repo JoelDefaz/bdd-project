@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Data;
 using System.Windows.Forms;
+using Oracle.ManagedDataAccess.Client;
+using Prototipo_1___SartorialSys.BL.BD;
 using Prototipo_1___SartorialSys.Clases;
 
 namespace Prototipo_1___SartorialSys
@@ -7,12 +10,6 @@ namespace Prototipo_1___SartorialSys
     public partial class frmClientes : Form
     {
         private bool permiso;
-
-        public frmClientes(bool permiso)
-        {
-            InitializeComponent();
-            this.permiso = permiso;
-        }
 
         public frmClientes()
         {
@@ -29,7 +26,6 @@ namespace Prototipo_1___SartorialSys
             btnBuscarActualizar.PerformClick();
         }
 
-        Validaciones val = new Validaciones();
         private int v;
 
         private void btnRegresar_Click(object sender, EventArgs e)
@@ -67,19 +63,17 @@ namespace Prototipo_1___SartorialSys
 
         private void btnInsertar_Click(object sender, EventArgs e)
         {
-            string[] datosCliente = { txtCedulaRegistrar.Text, txtNombresRegistrar.Text, txtApellidosRegistrar.Text, txtDireccionRegistrar.Text, txtCorreoRegistrar.Text, txtTelefonoRegistrar.Text };
-            if (!ValidarCedula.estanLosCamposLlenos(datosCliente))
-            {
-                Mensajes.emitirMensaje("Los datos no pueden estar vacíos – Por favor llenar");
-                return;
-            }
+            string[] datosCliente = { 
+                txtCedulaRegistrar.Text, 
+                txtNombresRegistrar.Text, 
+                txtApellidosRegistrar.Text, 
+                txtDireccionRegistrar.Text, 
+                txtTelefonoRegistrar.Text, 
+                txtCorreoRegistrar.Text, 
+                txtCantonRegistrar.Text};
             if (Cliente.registrarCliente(datosCliente))
             {
                 limpiarConsola();
-            }
-            else
-            {
-                Mensajes.emitirMensaje("Ocurrio un error al ingresar el nuevo cliente");
             }
         }
 
@@ -91,6 +85,7 @@ namespace Prototipo_1___SartorialSys
             txtDireccionRegistrar.Text = "";
             txtTelefonoRegistrar.Text = "";
             txtCorreoRegistrar.Text = "";
+            txtCantonRegistrar.Text = "";
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -129,13 +124,7 @@ namespace Prototipo_1___SartorialSys
 
         private void btnBuscarParaActualizar_Click(object sender, EventArgs e)
         {
-            string[] datosCliente = Cliente.buscarCliente(txtParametroBuscar.Text);
-            txtCedulaBuscar.Text = datosCliente[0];
-            txtNombresBuscar.Text = datosCliente[1];
-            txtApellidosBuscar.Text = datosCliente[2];
-            txtDireccionBuscar.Text= datosCliente[3];
-            txtCorreoBuscar.Text = datosCliente[4];
-            txtTelefonoBuscar.Text = datosCliente[5];
+            //string[] datosCliente = Cliente.buscarCliente(txtParametroBuscar.Text);
         }
 
         private void txtParametroParaActualizar_TextChanged(object sender, EventArgs e)
@@ -329,14 +318,7 @@ namespace Prototipo_1___SartorialSys
 
         private void limpiarBuscar()
         {
-            txtParametroActualizar.Text = "";
-            txtCedulaBuscar.Text = "";
-            txtNombresBuscar.Text = "";
-            txtApellidosBuscar.Text = "";
-            txtDireccionBuscar.Text = "";
-            txtCorreoBuscar.Text = "";
-            txtTelefonoBuscar.Text = "";
-        }
+            txtParametroActualizar.Text = "";        }
 
         private void groupBox6_Enter(object sender, EventArgs e)
         {
@@ -512,12 +494,7 @@ namespace Prototipo_1___SartorialSys
         {
             if(txtCedulaRegistrar.Text != "")
             {
-                if (!ValidarCedula.validarCedula(txtCedulaRegistrar.Text))
-                {
-                    Mensajes.emitirMensaje("Número de Cédula inválida");
-                    txtCedulaRegistrar.Text = "";
-                    txtCedulaRegistrar.Focus();
-                }
+
             }
         }
 
@@ -525,12 +502,6 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtNombresRegistrar.Text != "")
             {
-                if (!Validaciones.validarNombrApellido(txtNombresRegistrar.Text))
-                {
-                    Mensajes.emitirMensaje("Nombres equivocados");
-                    txtNombresRegistrar.Text = "";
-                    txtNombresRegistrar.Focus();
-                }
             }
         }
 
@@ -543,12 +514,7 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtApellidosRegistrar.Text != "")
             {
-                if (!Validaciones.validarNombrApellido(txtApellidosRegistrar.Text))
-                {
-                    Mensajes.emitirMensaje("Apellidos equivocados");
-                    txtApellidosRegistrar.Text = "";
-                    txtApellidosRegistrar.Focus();
-                }
+
             }
         }
 
@@ -556,12 +522,7 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtNombresActualizar.Text != "")
             {
-                if (!Validaciones.validarNombrApellido(txtNombresActualizar.Text))
-                {
-                    Mensajes.emitirMensaje("Nombres equivocados");
-                    txtNombresActualizar.Text = "";
-                    txtNombresActualizar.Focus();
-                }
+
             }
         }
 
@@ -569,12 +530,7 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtApellidosActualizar.Text != "")
             {
-                if (!Validaciones.validarNombrApellido(txtApellidosActualizar.Text))
-                {
-                    Mensajes.emitirMensaje("Nombres equivocados");
-                    txtApellidosActualizar.Text = "";
-                    txtApellidosActualizar.Focus();
-                }
+
             }
         }
 
@@ -609,12 +565,7 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtTelefonoRegistrar.Text != "")
             {
-                if (!Validaciones.validarTelefono(txtTelefonoRegistrar.Text))
-                {
-                    Mensajes.emitirMensaje("Número de teléfono equivocado");
-                    txtTelefonoRegistrar.Text = "";
-                    txtTelefonoRegistrar.Focus();
-                }
+
             }
         }
 
@@ -622,25 +573,7 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtCorreoRegistrar.Text != "")
             {
-                if (!Validaciones.ValidarCorreoElectronico(txtCorreoRegistrar.Text))
-                {
-                    Mensajes.emitirMensaje("Correo Electrónico equivocado");
-                    txtCorreoRegistrar.Text = "";
-                    txtCorreoRegistrar.Focus();
-                }
-            }
-        }
 
-        private void txtParametroBuscar_Leave(object sender, EventArgs e)
-        {
-            if (txtParametroBuscar.Text != "")
-            {
-                if (!ValidarCedula.validarCedula(txtParametroBuscar.Text))
-                {
-                    Mensajes.emitirMensaje("Número de Cédula inválida");
-                    txtParametroBuscar.Text = "";
-                    txtParametroBuscar.Focus();
-                }
             }
         }
 
@@ -648,12 +581,7 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtParametroActualizar.Text != "")
             {
-                if (!ValidarCedula.validarCedula(txtParametroActualizar.Text))
-                {
-                    Mensajes.emitirMensaje("Número de Cédula inválida");
-                    txtParametroActualizar.Text = "";
-                    txtParametroActualizar.Focus();
-                }
+
             }
         }
 
@@ -661,12 +589,7 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtParametroDarDeBaja.Text != "")
             {
-                if (!ValidarCedula.validarCedula(txtParametroDarDeBaja.Text))
-                {
-                    Mensajes.emitirMensaje("Número de Cédula inválida");
-                    txtParametroDarDeBaja.Text = "";
-                    txtParametroDarDeBaja.Focus();
-                }
+
             }
         }
 
@@ -684,12 +607,7 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtTelefonoActualizar.Text != "")
             {
-                if (!Validaciones.validarTelefono(txtTelefonoActualizar.Text))
-                {
-                    Mensajes.emitirMensaje("Número de teléfono equivocado");
-                    txtTelefonoActualizar.Text = "";
-                    txtTelefonoActualizar.Focus();
-                }
+
             }
         }
 
@@ -697,13 +615,44 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtCorreoActualizar.Text != "")
             {
-                if (!Validaciones.ValidarCorreoElectronico(txtCorreoActualizar.Text))
-                {
-                    Mensajes.emitirMensaje("Correo Electrónico equivocado");
-                    txtCorreoActualizar.Text = "";
-                    txtCorreoActualizar.Focus();
                 }
             }
+
+        private void tabClientes_Enter(object sender, EventArgs e)
+        {
+            //Buscar en la lista y ponerlo en la tabla
+            string query = "SELECT * FROM " + Cliente.getNombreTabla();
+
+            try
+            {
+                // Obtener la instancia del Singleton
+                var dbConnection = OracleDatabaseConnection.Instance;
+
+                // Obtener la conexión
+                using (var connection = dbConnection.GetConnection())
+                {
+                    // Crear el comando
+                    using (var cmd = new OracleCommand(query, connection))
+                    {
+                        // Usar un adaptador para llenar un DataTable
+                        using (var adapter = new OracleDataAdapter(cmd))
+                        {
+                            DataTable clientes = new DataTable();
+                            adapter.Fill(clientes);
+                            dgtvClientes.DataSource = clientes;
+                        }
+                    }
+                }
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine($"Error de base de datos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
+
     }
 }

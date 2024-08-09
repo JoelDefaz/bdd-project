@@ -147,26 +147,12 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtcodigoBusqueda.Text != "")
             {
-                if (!Validaciones.esValidoCodigoProducto(txtcodigoBusqueda.Text))
-                {
-                    Mensajes.emitirMensaje("Número de teléfono equivocado");
-                    txtcodigoBusqueda.Text = "";
-                    txtcodigoBusqueda.Focus();
-                }
+
             }
         }
 
         private void txtParametroActualizar_Leave(object sender, EventArgs e)
         {
-            if (txtParametroActualizar.Text != "")
-            {
-                if (!Validaciones.esValidoCodigoProducto(txtParametroActualizar.Text))
-                {
-                    Mensajes.emitirMensaje("Número de teléfono equivocado");
-                    txtParametroActualizar.Text = "";
-                    txtParametroActualizar.Focus();
-                }
-            }
         }
     }
 }

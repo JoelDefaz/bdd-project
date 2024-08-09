@@ -33,11 +33,6 @@ namespace Prototipo_1___SartorialSys
                 txtHAlmuerzo.Text,
                 txtHSalida.Text,
                 fechaSeleccionada.ToString("yyyy-MM-dd")};
-            if (!ValidarCedula.estanLosCamposLlenos(datosEmpleado))
-            {
-                Mensajes.emitirMensaje("Los datos no pueden estar vacíos – Por favor llenar");
-                return;
-            }
             if (Empleados.registrarEmpleado(datosEmpleado))
             {
                 limpiarRegistro();
@@ -66,12 +61,6 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtCedulaRegistrar.Text != "")
             {
-                if (!ValidarCedula.validarCedula(txtCedulaRegistrar.Text))
-                {
-                    Mensajes.emitirMensaje("Número de Cédula inválida");
-                    txtCedulaRegistrar.Text = "";
-                    txtCedulaRegistrar.Focus();
-                }
             }
         }
 
@@ -79,12 +68,7 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtNombresRegistrar.Text != "")
             {
-                if (!Validaciones.validarNombrApellido(txtNombresRegistrar.Text))
-                {
-                    Mensajes.emitirMensaje("Nombres equivocados");
-                    txtNombresRegistrar.Text = "";
-                    txtNombresRegistrar.Focus();
-                }
+
             }
         }
 
@@ -92,12 +76,7 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtApellidosRegistrar.Text != "")
             {
-                if (!Validaciones.validarNombrApellido(txtApellidosRegistrar.Text))
-                {
-                    Mensajes.emitirMensaje("Apellidos equivocados");
-                    txtApellidosRegistrar.Text = "";
-                    txtApellidosRegistrar.Focus();
-                }
+
             }
         }
 
@@ -105,12 +84,7 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtTelefonoRegistrar.Text != "")
             {
-                if (!Validaciones.validarTelefono(txtTelefonoRegistrar.Text))
-                {
-                    Mensajes.emitirMensaje("Número de teléfono equivocado");
-                    txtTelefonoRegistrar.Text = "";
-                    txtTelefonoRegistrar.Focus();
-                }
+
             }
         }
 
@@ -118,12 +92,7 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtCorreoRegistrar.Text != "")
             {
-                if (!Validaciones.ValidarCorreoElectronico(txtCorreoRegistrar.Text))
-                {
-                    Mensajes.emitirMensaje("Correo Electrónico equivocado");
-                    txtCorreoRegistrar.Text = "";
-                    txtCorreoRegistrar.Focus();
-                }
+
             }
         }
 
@@ -131,12 +100,6 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtSalarioRegistrar.Text != "")
             {
-                if (!Validaciones.esCantidadDecimalValida(txtSalarioRegistrar.Text))
-                {
-                    Mensajes.emitirMensaje("Valor no válido");
-                    txtSalarioRegistrar.Text = "";
-                    txtSalarioRegistrar.Focus();
-                }
             }
         }
 
@@ -144,12 +107,7 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtHEntrada.Text != "")
             {
-                if (!Validaciones.validarHora(txtHEntrada.Text))
-                {
-                    Mensajes.emitirMensaje("Hora no válida");
-                    txtHEntrada.Text = "";
-                    txtHEntrada.Focus();
-                }
+
             }
         }
 
@@ -157,12 +115,7 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtHAlmuerzo.Text != "")
             {
-                if (!Validaciones.validarHora(txtHAlmuerzo.Text))
-                {
-                    Mensajes.emitirMensaje("Hora no válida");
-                    txtHAlmuerzo.Text = "";
-                    txtHAlmuerzo.Focus();
-                }
+
             }
         }
 
@@ -170,12 +123,7 @@ namespace Prototipo_1___SartorialSys
         {
             if (txtHSalida.Text != "")
             {
-                if (!Validaciones.validarHora(txtHSalida.Text))
-                {
-                    Mensajes.emitirMensaje("Hora no válida");
-                    txtHSalida.Text = "";
-                    txtHSalida.Focus();
-                }
+
             }
         }
     }

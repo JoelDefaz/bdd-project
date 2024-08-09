@@ -21,34 +21,17 @@ namespace Prototipo_1___SartorialSys
         private IconButton currentBtn;
         private Panel leftBorderBtn;
         private Form currentchildForm;
-        private string usuario;
-        private bool permiso;
+        private string usuario = "Master";
 
         //
-        public frmMenu(string usuario_actual)
+        public frmMenu()
         {
             InitializeComponent();
             leftBorderBtn = new Panel();
             leftBorderBtn.Size = new Size(7, 60);
             pnlMenu.Controls.Add(leftBorderBtn);
-            this.usuario = usuario_actual;
-            this.permiso = Usuario.tienePermisos(usuario_actual);
             Form currentchildForm;
-            label1.Text += usuario_actual;
-            activarBotones();
-        }
-
-        private void activarBotones()
-        {
-            if (!permiso)
-            {
-                btnProductos.Visible = false;
-                btnPedidos.Visible = false;
-                btnProveedores.Visible = false;
-                btnEmpleados.Visible = false;
-                btnAdministracion.Visible = false;
-                btnAuditoria.Visible = false;
-            }
+            label1.Text += usuario;
         }
 
         //Structure
@@ -119,18 +102,10 @@ namespace Prototipo_1___SartorialSys
                 pnlMenu.Width = 213;
         }
 
-        private void btnLogout_Click(object sender, EventArgs e)
-        {
-            this.Visible = false;
-            this.Close();
-            frmInicio inicio = new frmInicio();
-            inicio.ShowDialog();
-        }
-
         private void btnClientes_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColor.color1);
-            openFormChild(new frmClientes(permiso));
+            openFormChild(new frmClientes());
         }
 
         private void btnProveedores_Click(object sender, EventArgs e)
@@ -148,7 +123,7 @@ namespace Prototipo_1___SartorialSys
         private void btnInventario_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColor.color4);
-            openFormChild(new frmInventario(permiso));
+            openFormChild(new frmInventario(true));
         }
 
         private void btnPedidos_Click(object sender, EventArgs e)
@@ -160,7 +135,7 @@ namespace Prototipo_1___SartorialSys
         private void btnVentas_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, RGBColor.color6);
-            openFormChild(new frmVentas(permiso));
+            openFormChild(new frmVentas(true));
         }
 
         private void btnAdministracion_Click(object sender, EventArgs e)

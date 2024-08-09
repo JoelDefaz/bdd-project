@@ -36,15 +36,6 @@ namespace Prototipo_1___SartorialSys
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-            if (!Validaciones.estanLlenosLosCampos(getDatos())){
-                Mensajes.emitirMensaje("Los datos no pueden estar en blanco – Por favor Llenar");
-                return;
-            }
-            if (!Validaciones.validarParametros(getDatos()))
-            {
-                Mensajes.emitirMensaje("Datos incorrectos – Vuelva a ingresar”");
-                return;
-            }
             if (!Parametros.registrarParametro(getDatos()))
             {
                 Mensajes.emitirMensaje("Error al registrar el parámetro");
@@ -86,11 +77,6 @@ namespace Prototipo_1___SartorialSys
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            if (!Validaciones.validarParametros(getDatosActualizar()))
-            {
-                Mensajes.emitirMensaje("Datos incorretos - Por favor corregir");
-                return;
-            }
             if (!Parametros.actualizarParametro(txtNombreActualizar.Text, getDatosActualizar()))
             {
                 Mensajes.emitirMensaje("Erro al actualizar este dato");
