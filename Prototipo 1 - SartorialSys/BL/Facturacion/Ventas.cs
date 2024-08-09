@@ -17,12 +17,8 @@ namespace Prototipo_1___SartorialSys.Clases
 {
     internal class Ventas
     {
-        static string strConn = ConexionBaseDeDatos.getConexion();
-        static string strComm = null;
-        static SqlConnection conn = null;
-        static SqlCommand comm = null;
         internal static bool registrarVenta(string[] datos, string[,] items)
-        {
+        {/*
             string numeroDeFactura = "001-001-" + getNumeroFac(getSigNumFact());
             using (conn = new SqlConnection(strConn))
             {
@@ -63,13 +59,13 @@ namespace Prototipo_1___SartorialSys.Clases
                         return false;
                     }return false;
                 }
-            }
+            }*/
             return true;
         }
 
         private static int getSigNumFact()
         {
-            int num_factura;
+            int num_factura=0;/*
             using (conn = new SqlConnection(strConn))
             {
                 conn.Open();
@@ -80,7 +76,7 @@ namespace Prototipo_1___SartorialSys.Clases
                     rdr.Read();
                     num_factura = Convert.ToInt32(rdr.GetDecimal(0));
                 }
-            }    
+            }    */
                 return num_factura;
         }
 
@@ -113,7 +109,7 @@ namespace Prototipo_1___SartorialSys.Clases
         }
 
         internal static string[] consultarVenta(string numero_factura)
-        {
+        {/*
             string[] datos = new string[14];
             using (conn = new SqlConnection(strConn))
             {
@@ -160,8 +156,8 @@ namespace Prototipo_1___SartorialSys.Clases
                         }
                     }
                 }
-            }
-            return (datos);
+            }*/
+            return null;
         }
 
         private static string getComandoConsulta(string numero_factura)
@@ -173,7 +169,7 @@ namespace Prototipo_1___SartorialSys.Clases
         }
 
         internal static string[,] getItemsFactura(string numero_factura)
-        {
+        {/*
             string[,] items = null;
             int filas = 10;
             using (conn = new SqlConnection(strConn))
@@ -196,12 +192,12 @@ namespace Prototipo_1___SartorialSys.Clases
                     }
                     items = datoSItems;
                 }
-            }
-            return items;
+            }*/
+            return null;
         }
 
         internal static bool anularFactura(string text)
-        {
+        {/*
             try
             {
                 using (conn = new SqlConnection(strConn))
@@ -223,12 +219,12 @@ namespace Prototipo_1___SartorialSys.Clases
             }
             catch (Exception ex) { 
                 return false;
-            }
+            }*/
             return true;
         }
 
         internal static string getNumeroFactura()
-        {
+        {/*
             try
             {
                 using (conn = new SqlConnection(strConn))
@@ -245,7 +241,7 @@ namespace Prototipo_1___SartorialSys.Clases
             catch (Exception ex)
             {
                 return "";
-            }
+            }*/
             return "";
         }
     }

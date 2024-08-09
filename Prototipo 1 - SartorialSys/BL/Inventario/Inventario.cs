@@ -9,10 +9,6 @@ namespace Prototipo_1___SartorialSys.Clases
 {
     internal class Inventario
     {
-        static string strConn = ConexionBaseDeDatos.getConexion();
-        static string strComm = null;
-        static SqlConnection conn = null;
-        static SqlCommand comm = null;
         internal static void actualizarInventario(string[,] items)
         {   
             int filas = items.GetLength(0);
@@ -25,7 +21,7 @@ namespace Prototipo_1___SartorialSys.Clases
         }
 
         internal static void actualizarInventario(string comando, string codigo, string cantidad)
-        {
+        {/*
             using (conn = new SqlConnection(strConn))
             {
                 conn.Open();
@@ -35,10 +31,10 @@ namespace Prototipo_1___SartorialSys.Clases
                 {
                     comm.ExecuteNonQuery();
                 }
-            }
+            }*/
         }
         internal static void actualizarInventario(string codigo, int cantidad,string fecha_actualizacion)
-        {
+        {/*
             using (conn = new SqlConnection(strConn))
             {
                 conn.Open();
@@ -51,11 +47,13 @@ namespace Prototipo_1___SartorialSys.Clases
                         Mensajes.emitirMensaje("Stock actualizado con éxito");
                     }
                 }
-            }
+            }*/
         }
 
         internal static string[] getDatosProducto(string codigo)
         {
+            string[] datos = new string[6];
+            /*
             string[] datos = new string[6];
             using (conn = new SqlConnection(strConn))
             {
@@ -85,8 +83,9 @@ namespace Prototipo_1___SartorialSys.Clases
                     datos[4] = rdr.GetInt32(4).ToString();
                     datos[5] = rdr.GetDecimal(5).ToString();
                 }
-            }
+            }*/
             return datos;
+        
         }
     }
 }

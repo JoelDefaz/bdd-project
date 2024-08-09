@@ -28,39 +28,6 @@ namespace Prototipo_1___SartorialSys
 
         private int v;
 
-        private void btnRegresar_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void checkNombres_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkDireccion_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkTelefono_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkEmail_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtCedulaActualizar_TextChanged(object sender, EventArgs e)
-        {
-       
-        }
-
-        private void txtTelefonoActualizar_TextChanged(object sender, EventArgs e)
-        {
-        }
-
         private void btnInsertar_Click(object sender, EventArgs e)
         {
             string[] datosCliente = { 
@@ -150,12 +117,15 @@ namespace Prototipo_1___SartorialSys
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             string[] datosCliente = Cliente.buscarCliente(txtParametroActualizar.Text);
+
             txtCedulaActualizar.Text = datosCliente[0];
             txtNombresActualizar.Text = datosCliente[1];
             txtApellidosActualizar.Text = datosCliente[2];
             txtDireccionActualizar.Text = datosCliente[3];
             txtCorreoActualizar.Text = datosCliente[4];
             txtTelefonoActualizar.Text = datosCliente[5];
+            txtCantonActualizar.Text = datosCliente[6];
+
         }
 
         private void txtParametroEliminar_TextChanged(object sender, EventArgs e)
@@ -180,6 +150,7 @@ namespace Prototipo_1___SartorialSys
             txtDireccionDarDeBaja.Text = "";
             txtCorreoDarDeBaja.Text = "";
             txtTelefonoDarDeBaja.Text = "";
+            txtCantonDarDeBaja.Text = "";
         }
 
         private void label29_Click(object sender, EventArgs e)
@@ -197,11 +168,6 @@ namespace Prototipo_1___SartorialSys
         }
 
         private void txtFechaNacimientoConsultar_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
         {
 
         }
@@ -261,32 +227,7 @@ namespace Prototipo_1___SartorialSys
 
         }
 
-        private void txtCédulaRegistrar_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox2_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label10_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
         {
 
         }
@@ -327,13 +268,14 @@ namespace Prototipo_1___SartorialSys
 
         private void btnBuscarDarDeBaja_Click(object sender, EventArgs e)
         {
-            string[] datosCliente = Cliente.buscarCliente(txtParametroDarDeBaja.Text,1);
+            string[] datosCliente = Cliente.buscarCliente(txtParametroDarDeBaja.Text);
             txtCedulaDarDeBaja.Text = datosCliente[0];
             txtNombresDarDeBaja.Text = datosCliente[1];
             txtApellidosDarDeBaja.Text = datosCliente[2];
             txtDireccionDarDeBaja.Text = datosCliente[3];
             txtCorreoDarDeBaja.Text = datosCliente[4];
             txtTelefonoDarDeBaja.Text = datosCliente[5];
+            txtCantonDarDeBaja.Text = datosCliente[6];
         }
 
         private void bntDarDeBaja_Click(object sender, EventArgs e)
@@ -354,17 +296,13 @@ namespace Prototipo_1___SartorialSys
 
         private void btnCorregirNombres_Click(object sender, EventArgs e)
         {
-            if (permiso && checkBoxNombres.Checked)
+            if (checkBoxNombres.Checked)
             {
                 if (Cliente.actualizarNombres(txtNombresActualizar.Text, txtParametroActualizar.Text))
                 {
                     btnBuscarActualizar.PerformClick();
                     checkBoxNombres.Checked = false;
                 }
-            }
-            else
-            {
-                Mensajes.emitirMensaje("Usted no posee los permisos para cambiar esta información");
             }
         }
 
@@ -466,35 +404,13 @@ namespace Prototipo_1___SartorialSys
 
         private void btnCorregirApellidos_Click(object sender, EventArgs e)
         {
-            if (permiso && checkBoxApellidos.Checked)
+            if (checkBoxApellidos.Checked)
             {
                 if (Cliente.actualizarApellidos(txtApellidosActualizar.Text, txtParametroActualizar.Text))
                 {
                     btnBuscarActualizar.PerformClick();
                     checkBoxApellidos.Checked = false;
                 }
-            }
-            else
-            {
-                Mensajes.emitirMensaje("Usted no posee los permisos para cambiar esta información");
-            }
-        }
-
-        private void txtCedulaRegistrar_Validating(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
-        }
-
-        private void txtCedulaRegistrar_Validated(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtCedulaRegistrar_Leave(object sender, EventArgs e)
-        {
-            if(txtCedulaRegistrar.Text != "")
-            {
-
             }
         }
 
@@ -620,27 +536,21 @@ namespace Prototipo_1___SartorialSys
 
         private void tabClientes_Enter(object sender, EventArgs e)
         {
-            //Buscar en la lista y ponerlo en la tabla
             string query = "SELECT * FROM " + Cliente.getNombreTabla();
 
             try
             {
-                // Obtener la instancia del Singleton
                 var dbConnection = OracleDatabaseConnection.Instance;
+                var connection = dbConnection.GetConnection();
 
-                // Obtener la conexión
-                using (var connection = dbConnection.GetConnection())
+                using (var cmd = new OracleCommand(query, connection))
                 {
-                    // Crear el comando
-                    using (var cmd = new OracleCommand(query, connection))
+                    // Usar un adaptador para llenar un DataTable
+                    using (var adapter = new OracleDataAdapter(cmd))
                     {
-                        // Usar un adaptador para llenar un DataTable
-                        using (var adapter = new OracleDataAdapter(cmd))
-                        {
-                            DataTable clientes = new DataTable();
-                            adapter.Fill(clientes);
-                            dgtvClientes.DataSource = clientes;
-                        }
+                        DataTable clientes = new DataTable();
+                        adapter.Fill(clientes);
+                        dgtvClientes.DataSource = clientes;
                     }
                 }
             }
@@ -652,7 +562,37 @@ namespace Prototipo_1___SartorialSys
             {
                 Console.WriteLine($"Error: {ex.Message}");
             }
+            finally
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                dbConnection.CloseConnection();
+            }
         }
 
+
+        private void txtCedulaRegistrar_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void txtCedulaRegistrar_Validated(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkDireccion_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRefrescar_Click(object sender, EventArgs e)
+        {
+            tabClientes_Enter(sender, e);
+        }
     }
 }

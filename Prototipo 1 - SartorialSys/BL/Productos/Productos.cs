@@ -9,10 +9,6 @@ namespace Prototipo_1___SartorialSys.Clases
 {
     internal class Productos
     {
-        static string strConn = ConexionBaseDeDatos.getConexion();
-        static string strComm = null;
-        static SqlConnection conn = null;
-        static SqlCommand comm = null;
         internal static string[] getColores()
         {
             int i = 0;
@@ -62,7 +58,7 @@ namespace Prototipo_1___SartorialSys.Clases
         }
 
         internal static bool registrarProducto(string[] datos)
-        {
+        {/*
             using (conn = new SqlConnection(strConn))
             {
                 try
@@ -97,7 +93,7 @@ namespace Prototipo_1___SartorialSys.Clases
                         return false;
                     }
                 }
-            }
+            }*/
             return false;
         }
 
@@ -134,7 +130,7 @@ namespace Prototipo_1___SartorialSys.Clases
         }
 
         internal static bool buscarProducto(int i, string codigo, System.Windows.Forms.DataGridView listaProductos, string cantidad)
-        {
+        {/*
             using (conn = new SqlConnection(strConn))
             {
                 conn.Open();
@@ -194,14 +190,14 @@ namespace Prototipo_1___SartorialSys.Clases
                         return false;
                     }
                 }
-            }
+            }*/
             return true;
         }
 
         private static (int,bool) hayStockSuficiente(string codigo, string cantidad)
         {
-            int stockACtual;
-            bool hayStock = true;
+            int stockACtual = 0;
+            bool hayStock = true;/*
             using (conn = new SqlConnection(strConn))
             {
                 conn.Open();
@@ -216,12 +212,12 @@ namespace Prototipo_1___SartorialSys.Clases
                         hayStock = false;
                     }
                 }
-            }
+            }*/
             return (stockACtual, hayStock);
         }
 
         internal static string[] datosProducto(string text)
-        {
+        {/*
             string[] datos = new string[10];
             using (conn = new SqlConnection(strConn))
             {
@@ -264,7 +260,8 @@ namespace Prototipo_1___SartorialSys.Clases
                     }
                     return datos;
                 }
-            }
+            }*/
+            return null;
         }
 
         private static string getComandoBusqueda(string text)
@@ -275,7 +272,7 @@ namespace Prototipo_1___SartorialSys.Clases
         }
 
         internal static bool actualizarPrecioCompra(string precio_compra, string codigo)
-        {
+        {/*
             if (!Mensajes.confirmarAccion("¿Está seguro de actualizar este dato?"))
             {
                 return false;
@@ -292,12 +289,12 @@ namespace Prototipo_1___SartorialSys.Clases
                         Mensajes.emitirMensaje("Precio de compra actualizado con éxito”");
                     }
                 }
-            }
+            }*/
             return true;
         }
 
         internal static bool actualizarPrecioVenta(string precio_venta, string codigo)
-        {
+        {/*
             if (!Mensajes.confirmarAccion("¿Está seguro de actualizar este dato?"))
             {
                 return false;
@@ -314,7 +311,7 @@ namespace Prototipo_1___SartorialSys.Clases
                         Mensajes.emitirMensaje("Precio de venta actualizado con éxito”");
                     }
                 }
-            }
+            }*/
             return true;
         }
 

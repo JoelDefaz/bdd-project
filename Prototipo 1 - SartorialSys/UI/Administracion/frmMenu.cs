@@ -11,6 +11,7 @@ using System.Xml.Linq;
 using FontAwesome.Sharp;
 using Prototipo_1___SartorialSys.Clases;
 using Prototipo_1___SartorialSys.Formularios;
+using Prototipo_1___SartorialSys.UI.Auditoria;
 
 namespace Prototipo_1___SartorialSys
 {
@@ -164,6 +165,12 @@ namespace Prototipo_1___SartorialSys
         private void lblHora_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnAuditoria_Click(object sender, EventArgs e)
+        {
+            ActivateButton(sender, RGBColor.color6);
+            openFormChild(new frmAuditoria());
         }
     }
 }

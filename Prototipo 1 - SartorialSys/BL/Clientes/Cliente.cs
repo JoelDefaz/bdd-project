@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
@@ -13,113 +14,93 @@ namespace Prototipo_1___SartorialSys.Clases
 {
     internal class Cliente
     {
-        static string strConn = ConexionBaseDeDatos.getConexion();
-        static string strComm = null;
-        static SqlConnection conn = null;
-        static SqlCommand comm = null;
         static string nombreTabla = "clientes_quito";
         internal static string[] buscarCliente(string parametroBusqueda)
         {
-            string[] datosCliente = new string[6];
-            using (conn = new SqlConnection(strConn))
-            {
-                conn.Open();
-                strComm = "SELECT * FROM clientes WHERE cedula_cliente = '" + parametroBusqueda + "'";
-                using (comm = new SqlCommand(strComm, conn))
-                {
-                    SqlDataReader rdr = comm.ExecuteReader();
-                    rdr.Read();
-                    if (!rdr.HasRows)
-                    {
-                        Mensajes.emitirMensaje("No existe registro");
-                        return datosCliente;
-                    }
-                    if(!rdr.GetBoolean(6))
-                    {
-                        Mensajes.emitirMensaje("Cliente no activo");
-                        return datosCliente;
-                    }
-                    else
-                    {
-                        datosCliente[0] = rdr.GetString(0);
-                        datosCliente[1] = rdr.GetString(1);
-                        datosCliente[2] = rdr.GetString(2);
-                        datosCliente[3] = rdr.GetString(3);
-                        datosCliente[4] = rdr.GetString(4);
-                        datosCliente[5] = rdr.GetString(5);
-                        return datosCliente;
-                    }
-                }
-            }
-        }
+            string[] datosCliente = new string[7];
+            string query = "SELECT * FROM " + nombreTabla + " WHERE cedula_cli = '" + parametroBusqueda+"'";
 
-        internal static string[] buscarCliente(string parametroBusqueda, int i)
-        {
-            string[] datosCliente = new string[6];
-            using (conn = new SqlConnection(strConn))
+            try
             {
-                conn.Open();
-                strComm = "SELECT * FROM clientes WHERE cedula_cliente = '" + parametroBusqueda + "'";
-                using (comm = new SqlCommand(strComm, conn))
+                var dbConnection = OracleDatabaseConnection.Instance;
+                var connection = dbConnection.GetConnection();
+
+                using (var cmd = new OracleCommand(query, connection))
                 {
-                    SqlDataReader rdr = comm.ExecuteReader();
-                    rdr.Read();
-                    if (!rdr.HasRows)
+                    // Usar un adaptador para llenar un DataTable
+                    using (var adapter = new OracleDataAdapter(cmd))
                     {
-                        Mensajes.emitirMensaje("No existe registro");
-                        return datosCliente;
-                    }
-                    else
-                    {
-                        datosCliente[0] = rdr.GetString(0);
-                        datosCliente[1] = rdr.GetString(1);
-                        datosCliente[2] = rdr.GetString(2);
-                        datosCliente[3] = rdr.GetString(3);
-                        datosCliente[4] = rdr.GetString(4);
-                        datosCliente[5] = rdr.GetString(5);
-                        return datosCliente;
+                        DataTable clientes = new DataTable();
+                        adapter.Fill(clientes);
+                        if (clientes.Rows.Count > 0)
+                        {
+                            DataRow row = clientes.Rows[0];
+
+                            datosCliente[0] = row["cedula_cli"].ToString();
+                            datosCliente[1] = row["nombres"].ToString();
+                            datosCliente[2] = row["apellidos"].ToString();
+                            datosCliente[3] = row["dir_domiciliaria"].ToString();
+                            datosCliente[4] = row["email"].ToString();
+                            datosCliente[5] = row["telefono"].ToString();
+                            datosCliente[6] = row["canton"].ToString();
+                        }
                     }
                 }
             }
+            catch (OracleException ex)
+            {
+                Console.WriteLine($"Error de base de datos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                dbConnection.CloseConnection();
+            }
+            return datosCliente;
         }
 
         internal static bool darDeBaja(string parametroBusqueda)
         {
-            bool activo;
-            using (conn = new SqlConnection(strConn))
+           if (!Mensajes.confirmarAccion("¿Está seguro de eliminar a este cliente?"))
             {
-                conn.Open();
-                strComm = "SELECT * FROM clientes WHERE cedula_cliente = '" + parametroBusqueda + "'";
-                using (comm = new SqlCommand(strComm, conn))
+                return false;
+            }
+            string query = "DELETE FROM "+nombreTabla+ " WHERE cedula_cli = :parametroBusqueda";
+            try
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                var connection = dbConnection.GetConnection();
+                using (var cmd = new OracleCommand(query, connection))
                 {
-                    SqlDataReader rdr = comm.ExecuteReader();
-                    rdr.Read();
-                    activo = rdr.GetBoolean(6);
-                }
-            }
-            if (!activo)
-            {
-                Mensajes.emitirMensaje("Este cliente ya esta dado de baja");
-                return false;
-            }
-           if (!Mensajes.confirmarAccion("¿Está seguro de dar de baja a este cliente?"))
-            {
-                return false;
-            }
-            using (conn = new SqlConnection(strConn))
-            {
-                conn.Open();
-                strComm = "UPDATE clientes SET activo = 0 WHERE cedula_cliente = " + parametroBusqueda;
+                    cmd.Parameters.Add(new OracleParameter("idCliente", parametroBusqueda));
+                    int rowsAffected = cmd.ExecuteNonQuery();
 
-                using (comm = new SqlCommand(strComm, conn))
-                {
-                    if (comm.ExecuteNonQuery() == 1)
+                    if (rowsAffected > 0)
                     {
-                        Mensajes.emitirMensaje("Cliente dado de baja con éxito");
+                        Mensajes.emitirMensaje("Cliente eliminado correctamente.");
+                        return true;
                     }
                 }
             }
-            return true;
+            catch (OracleException ex)
+            {
+                Console.WriteLine($"Error de base de datos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                // Cerrar la conexión manualmente
+                var dbConnection = OracleDatabaseConnection.Instance;
+                dbConnection.CloseConnection();
+            }
+            return false;
         }
 
         internal static bool registrarCliente(string[] datosCliente)
@@ -184,7 +165,7 @@ namespace Prototipo_1___SartorialSys.Clases
 
 
         internal static bool darDeAlta(string parametroBusqueda)
-        {
+        {/*
             bool activo;
             using (conn = new SqlConnection(strConn))
             {
@@ -218,118 +199,203 @@ namespace Prototipo_1___SartorialSys.Clases
                         Mensajes.emitirMensaje("Cliente dado de alta con éxito");
                     }
                 }
-            }
+            }*/
             return true;
         }
 
         internal static bool actualizarDireccion(string direccion, string parametroBusqueda)
         {
-            if (!Mensajes.confirmarAccion("¿Está seguro de actualizar este dato?"))
-            {
-                return false;
-            }
-            using (conn = new SqlConnection(strConn))
-            {
-                conn.Open();
-                strComm = "UPDATE clientes SET direccion_domiciliaria = '" + direccion +"' WHERE cedula_cliente = " + parametroBusqueda;
+            string query = "UPDATE " + nombreTabla + " SET dir_domiciliaria = :direccion WHERE cedula_cli = :parametroBusqueda";
 
-                using (comm = new SqlCommand(strComm, conn))
+            try
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                var connection = dbConnection.GetConnection();
+
+                using (var cmd = new OracleCommand(query, connection))
                 {
-                    if (comm.ExecuteNonQuery() == 1)
+                    cmd.Parameters.Add(new OracleParameter("dir_domiciliaria", direccion));
+                    cmd.Parameters.Add(new OracleParameter("cedula_cli", parametroBusqueda));
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
                     {
-                        Mensajes.emitirMensaje("Direccion domiciliaria actualizada con éxito");
+                        Mensajes.emitirMensaje("Cliente actualizado correctamente.");
+                        return true;
                     }
                 }
             }
-            return true;
+            catch (OracleException ex)
+            {
+                Console.WriteLine($"Error de base de datos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                dbConnection.CloseConnection();
+            }
+            return false;
         }
 
         internal static bool actualizarTelefono(string telefono, string parametroBusqueda)
         {
-            if (!Mensajes.confirmarAccion("¿Está seguro de actualizar este dato?"))
-            {
-                return false;
-            }
-            using (conn = new SqlConnection(strConn))
-            {
-                conn.Open();
-                strComm = "UPDATE clientes SET numero_telefono = '" + telefono + "' WHERE cedula_cliente = " + parametroBusqueda;
+            string query = "UPDATE " + nombreTabla + " SET telefono = :telefono WHERE cedula_cli = :parametroBusqueda";
 
-                using (comm = new SqlCommand(strComm, conn))
+            try
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                var connection = dbConnection.GetConnection();
+
+                using (var cmd = new OracleCommand(query, connection))
                 {
-                    if (comm.ExecuteNonQuery() == 1)
+                    cmd.Parameters.Add(new OracleParameter("telefono", telefono));
+                    cmd.Parameters.Add(new OracleParameter("cedula_cli", parametroBusqueda));
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
                     {
-                        Mensajes.emitirMensaje("Número de teléfono actualizado con éxito");
+                        Mensajes.emitirMensaje("Cliente actualizado correctamente.");
+                        return true;
                     }
                 }
             }
-            return true;
+            catch (OracleException ex)
+            {
+                Console.WriteLine($"Error de base de datos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                dbConnection.CloseConnection();
+            }
+            return false;
         }
 
         internal static bool actualizarCorreo(string correo, string parametroBusqueda)
         {
-            if (!Mensajes.confirmarAccion("¿Está seguro de actualizar este dato?"))
-            {
-                return false;
-            }
-            using (conn = new SqlConnection(strConn))
-            {
-                conn.Open();
-                strComm = "UPDATE clientes SET correo_electronico = '" + correo + "' WHERE cedula_cliente = " + parametroBusqueda;
+            string query = "UPDATE " + nombreTabla + " SET email = :correo WHERE cedula_cli = :parametroBusqueda";
 
-                using (comm = new SqlCommand(strComm, conn))
+            try
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                var connection = dbConnection.GetConnection();
+
+                using (var cmd = new OracleCommand(query, connection))
                 {
-                    if (comm.ExecuteNonQuery() == 1)
+                    cmd.Parameters.Add(new OracleParameter("email", correo));
+                    cmd.Parameters.Add(new OracleParameter("cedula_cli", parametroBusqueda));
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
                     {
-                        Mensajes.emitirMensaje("Correo electrónico actualizado con éxito");
+                        Mensajes.emitirMensaje("Cliente actualizado correctamente.");
+                        return true;
                     }
                 }
             }
-            return true;
+            catch (OracleException ex)
+            {
+                Console.WriteLine($"Error de base de datos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                dbConnection.CloseConnection();
+            }
+            return false;
         }
 
-        internal static bool actualizarNombres(string nombres, string parametroBusqueda)
+        internal static bool actualizarNombres(string nuevoNombre, string cedula)
         {
-            if (!Mensajes.confirmarAccion("¿Está seguro de corregir este dato?"))
-            {
-                return false;
-            }
-            using (conn = new SqlConnection(strConn))
-            {
-                conn.Open();
-                strComm = "UPDATE clientes SET nombres = '" + nombres + "' WHERE cedula_cliente = " + parametroBusqueda;
+            string query = "UPDATE "+nombreTabla+ " SET nombres = :nuevoNombre WHERE cedula_cli = :cedula";
 
-                using (comm = new SqlCommand(strComm, conn))
+            try
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                var connection = dbConnection.GetConnection();
+
+                using (var cmd = new OracleCommand(query, connection))
                 {
-                    if (comm.ExecuteNonQuery() == 1)
+                    cmd.Parameters.Add(new OracleParameter("nuevoNombre", nuevoNombre));
+                    cmd.Parameters.Add(new OracleParameter("cedula", cedula));
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
                     {
-                        Mensajes.emitirMensaje("Nombres corregidos con éxito");
+                        Mensajes.emitirMensaje("Cliente actualizado correctamente.");
+                        return true;
                     }
                 }
             }
-            return true;
+            catch (OracleException ex)
+            {
+                Console.WriteLine($"Error de base de datos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                dbConnection.CloseConnection();
+            }
+            return false;
         }
 
         internal static bool actualizarApellidos(string apellidos, string parametroBusqueda)
         {
-            if (!Mensajes.confirmarAccion("¿Está seguro de corregir este dato?"))
-            {
-                return false;
-            }
-            using (conn = new SqlConnection(strConn))
-            {
-                conn.Open();
-                strComm = "UPDATE clientes SET nombres = '" + apellidos + "' WHERE cedula_cliente = " + parametroBusqueda;
+            string query = "UPDATE "+nombreTabla+ " SET apellidos = :apellidos WHERE cedula_cli = :parametroBusqueda";
 
-                using (comm = new SqlCommand(strComm, conn))
+            try
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                var connection = dbConnection.GetConnection();
+
+                using (var cmd = new OracleCommand(query, connection))
                 {
-                    if (comm.ExecuteNonQuery() == 1)
+                    cmd.Parameters.Add(new OracleParameter("apellidos", apellidos));
+                    cmd.Parameters.Add(new OracleParameter("cedula_cli", parametroBusqueda));
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
                     {
-                        Mensajes.emitirMensaje("Apellidos corregidos con éxito");
+                        Mensajes.emitirMensaje("Cliente actualizado correctamente.");
+                        return true;
                     }
                 }
             }
-            return true;
+            catch (OracleException ex)
+            {
+                Console.WriteLine($"Error de base de datos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                dbConnection.CloseConnection();
+            }
+            return false;
         }
 
         public static string getNombreTabla()

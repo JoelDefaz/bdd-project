@@ -10,13 +10,9 @@ namespace Prototipo_1___SartorialSys.Clases
 {
     internal class Usuario
     {
-        static string strConn = ConexionBaseDeDatos.getConexion();
-        static string strComm = null;
-        static SqlConnection conn = null;
-        static SqlCommand comm = null;
 
         internal static bool actualizarContraseña(string contraseña, string parametroBusqueda)
-        {
+        {/*
             if (!confirmarAccion("¿Está seguro de actualizar este dato?"))
             {
                 return false;
@@ -32,7 +28,7 @@ namespace Prototipo_1___SartorialSys.Clases
                         Mensajes.emitirMensaje("Contraseña actualizada con éxito");
                     }
                 }
-            }
+            }*/
             return true;
         }
 
@@ -47,7 +43,7 @@ namespace Prototipo_1___SartorialSys.Clases
         }
 
         internal static string[] buscarUsuario(string parametroBusqueda)
-        {
+        {/*
             string[] datosCliente = new string[5];
             using (conn = new SqlConnection(strConn))
             {
@@ -72,11 +68,12 @@ namespace Prototipo_1___SartorialSys.Clases
                         return datosCliente;
                     }
                 }
-            }
+            }*/
+            return null;
         }
 
         internal static bool registrarUsuario(string[] datosUsuario)
-        {
+        {/*
             string usuario = "'" + datosUsuario[0] + "'";
             string contraseña = "'" + datosUsuario[1] + "'";
             string cedulaEmpleado = "'" + datosUsuario[2] + "'";
@@ -112,7 +109,7 @@ namespace Prototipo_1___SartorialSys.Clases
                         return false;
                     }
                 }
-            }
+            }*/
             return false;
         }
 
@@ -140,7 +137,7 @@ namespace Prototipo_1___SartorialSys.Clases
         }
 
         internal static bool actualizarRol(string rol, string parametroBusqueda)
-        {
+        {/*
             if (!confirmarAccion("¿Está seguro de actualizar este dato?"))
             {
                 return false;
@@ -156,12 +153,12 @@ namespace Prototipo_1___SartorialSys.Clases
                         Mensajes.emitirMensaje("Rol actualizado con éxito");
                     }
                 }
-            }
+            }*/
             return true;
         }
 
         internal static bool darDeBaja(string parametroBusqueda)
-        {
+        {/*
             if (!estaActivo(parametroBusqueda))
             {
                 Mensajes.emitirMensaje("Este usuario ya esta dado de baja");
@@ -183,12 +180,12 @@ namespace Prototipo_1___SartorialSys.Clases
                         Mensajes.emitirMensaje("Usuario dado de baja con éxito");
                     }
                 }
-            }
+            }*/
             return true;
         }
 
         private static bool estaActivo(string parametroBusqueda)
-        {
+        {/*
             bool activo;
             using (conn = new SqlConnection(strConn))
             {
@@ -200,12 +197,12 @@ namespace Prototipo_1___SartorialSys.Clases
                     rdr.Read();
                     activo = rdr.GetBoolean(4);
                 }
-            }
-            return activo;
+            }*/
+            return true;
         }
 
         internal static bool darDeAlta(string parametroBusqueda)
-        {
+        {/*
             if(estaActivo(parametroBusqueda))
             {
                 Mensajes.emitirMensaje("Este usuario ya esta dado de alta");
@@ -227,7 +224,7 @@ namespace Prototipo_1___SartorialSys.Clases
                         Mensajes.emitirMensaje("Usuario dado de alta con éxito");
                     }
                 }
-            }
+            }*/
             return true;
         }
     }

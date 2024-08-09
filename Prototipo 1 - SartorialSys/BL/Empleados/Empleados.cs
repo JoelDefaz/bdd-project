@@ -9,12 +9,8 @@ namespace Prototipo_1___SartorialSys.Clases
 {
     internal class Empleados
     {
-        static string strConn = ConexionBaseDeDatos.getConexion();
-        static string strComm = null;
-        static SqlConnection conn = null;
-        static SqlCommand comm = null;
         internal static bool registrarEmpleado(string[] datosCliente)
-        {
+        {/*
             using (conn = new SqlConnection(strConn))
             {
                 try
@@ -43,7 +39,7 @@ namespace Prototipo_1___SartorialSys.Clases
                         return false;
                     }
                 }
-            }
+            }*/
             return false;
         }
 

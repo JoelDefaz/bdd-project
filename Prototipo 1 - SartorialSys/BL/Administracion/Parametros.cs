@@ -9,13 +9,13 @@ namespace Prototipo_1___SartorialSys.Clases
 {
     internal class Parametros
     {
-        static string strConn = ConexionBaseDeDatos.getConexion();
+        //static string strConn = ConexionBaseDeDatos.getConexion();
         static string strComm = null;
         static SqlConnection conn = null;
         static SqlCommand comm = null;
 
         internal static bool actualizarParametro(string nombre, string[] datos)
-        {
+        {/*
             using (conn = new SqlConnection(strConn))
             {
                 try
@@ -44,7 +44,7 @@ namespace Prototipo_1___SartorialSys.Clases
                         return false;
                     }
                 }
-            }
+            }*/
             return true;
         }
 
@@ -67,7 +67,7 @@ namespace Prototipo_1___SartorialSys.Clases
         }
 
         internal static string getParametro(string text)
-        {
+        {/*
             using (conn = new SqlConnection(strConn))
             {
                 conn.Open();
@@ -83,11 +83,12 @@ namespace Prototipo_1___SartorialSys.Clases
                     }
                     return rdr.GetDecimal(0).ToString();
                 }
-            }
+            }*/
+            return "";
         }
 
         internal static string[] getParametroBusqueda(string text)
-        {
+        {/*
             string[] datos = new string[2];
             using (conn = new SqlConnection(strConn))
             {
@@ -106,11 +107,12 @@ namespace Prototipo_1___SartorialSys.Clases
                     datos[1] = rdr.GetDateTime(1).ToString();
                     return datos;
                 }
-            }
+            }*/
+            return null;
         }
 
         internal static bool registrarParametro(string[] nuevoParametro)
-        {
+        {/*
             using (conn = new SqlConnection(strConn))
             {
                 try
@@ -138,7 +140,7 @@ namespace Prototipo_1___SartorialSys.Clases
                         return false;
                     }
                 }
-            }
+            }*/
             return true;
         }
     }

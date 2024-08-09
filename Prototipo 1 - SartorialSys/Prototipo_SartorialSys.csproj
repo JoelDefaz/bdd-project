@@ -129,7 +129,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BD\ConexionBaseDeDatos.cs" />
     <Compile Include="BD\OracleDatabaseConnection.cs" />
     <Compile Include="BL\Clientes\Cliente.cs" />
     <Compile Include="BL\Empleados\Empleados.cs" />
@@ -139,6 +138,12 @@
     <Compile Include="BL\Productos\Productos.cs" />
     <Compile Include="BL\Administracion\Usuario.cs" />
     <Compile Include="BL\Facturacion\Ventas.cs" />
+    <Compile Include="UI\Auditoria\frmAuditoria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Auditoria\frmAuditoria.Designer.cs">
+      <DependentUpon>frmAuditoria.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Facturacion\frmAgregarProducto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -213,6 +218,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="UI\Auditoria\frmAuditoria.resx">
+      <DependentUpon>frmAuditoria.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Facturacion\frmAgregarProducto.resx">
       <DependentUpon>frmAgregarProducto.cs</DependentUpon>
     </EmbeddedResource>

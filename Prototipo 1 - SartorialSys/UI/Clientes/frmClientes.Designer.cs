@@ -32,31 +32,22 @@
             this.tabClientes = new System.Windows.Forms.TabControl();
             this.tabRegistrar = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.txtCantonRegistrar = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.txtCorreoRegistrar = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnInsertar = new System.Windows.Forms.Button();
-            this.txtTelefonoRegistrar = new System.Windows.Forms.TextBox();
-            this.txtDireccionRegistrar = new System.Windows.Forms.TextBox();
-            this.txtApellidosRegistrar = new System.Windows.Forms.TextBox();
-            this.txtNombresRegistrar = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtCedulaRegistrar = new System.Windows.Forms.TextBox();
             this.tabBuscar = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.dgtvClientes = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
+            this.dgtvClientes = new System.Windows.Forms.DataGridView();
             this.tabActualizar = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.checkBoxCanton = new System.Windows.Forms.CheckBox();
-            this.btnActualizarCanton = new System.Windows.Forms.Button();
             this.txtCantonActualizar = new System.Windows.Forms.TextBox();
             this.checkBoxCorreo = new System.Windows.Forms.CheckBox();
             this.checkBoxTelefono = new System.Windows.Forms.CheckBox();
@@ -107,6 +98,15 @@
             this.btnBuscarDarDeBaja = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
+            this.txtCantonRegistrar = new System.Windows.Forms.TextBox();
+            this.txtNombresRegistrar = new System.Windows.Forms.TextBox();
+            this.txtApellidosRegistrar = new System.Windows.Forms.TextBox();
+            this.txtDireccionRegistrar = new System.Windows.Forms.TextBox();
+            this.txtTelefonoRegistrar = new System.Windows.Forms.TextBox();
+            this.txtCorreoRegistrar = new System.Windows.Forms.TextBox();
+            this.txtCedulaRegistrar = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.btnRefrescar = new System.Windows.Forms.Button();
             this.tabClientes.SuspendLayout();
             this.tabRegistrar.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -191,15 +191,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
-            // txtCantonRegistrar
-            // 
-            this.txtCantonRegistrar.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCantonRegistrar.Location = new System.Drawing.Point(387, 391);
-            this.txtCantonRegistrar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtCantonRegistrar.Name = "txtCantonRegistrar";
-            this.txtCantonRegistrar.Size = new System.Drawing.Size(459, 24);
-            this.txtCantonRegistrar.TabIndex = 16;
-            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -209,17 +200,6 @@
             this.label12.Size = new System.Drawing.Size(66, 19);
             this.label12.TabIndex = 15;
             this.label12.Text = "Cantón:";
-            // 
-            // txtCorreoRegistrar
-            // 
-            this.txtCorreoRegistrar.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCorreoRegistrar.Location = new System.Drawing.Point(385, 309);
-            this.txtCorreoRegistrar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtCorreoRegistrar.Name = "txtCorreoRegistrar";
-            this.txtCorreoRegistrar.Size = new System.Drawing.Size(459, 24);
-            this.txtCorreoRegistrar.TabIndex = 14;
-            this.txtCorreoRegistrar.TextChanged += new System.EventHandler(this.txtFechaNacimientoRegistrar_TextChanged);
-            this.txtCorreoRegistrar.Leave += new System.EventHandler(this.txtCorreoRegistrar_Leave);
             // 
             // label30
             // 
@@ -255,51 +235,6 @@
             this.btnInsertar.Text = "Registrar";
             this.btnInsertar.UseVisualStyleBackColor = true;
             this.btnInsertar.Click += new System.EventHandler(this.btnInsertar_Click);
-            // 
-            // txtTelefonoRegistrar
-            // 
-            this.txtTelefonoRegistrar.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTelefonoRegistrar.Location = new System.Drawing.Point(385, 348);
-            this.txtTelefonoRegistrar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtTelefonoRegistrar.Name = "txtTelefonoRegistrar";
-            this.txtTelefonoRegistrar.Size = new System.Drawing.Size(459, 24);
-            this.txtTelefonoRegistrar.TabIndex = 10;
-            this.txtTelefonoRegistrar.TextChanged += new System.EventHandler(this.txtEmailRegistrar_TextChanged);
-            this.txtTelefonoRegistrar.Leave += new System.EventHandler(this.txtTelefonoRegistrar_Leave);
-            // 
-            // txtDireccionRegistrar
-            // 
-            this.txtDireccionRegistrar.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDireccionRegistrar.Location = new System.Drawing.Point(387, 266);
-            this.txtDireccionRegistrar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtDireccionRegistrar.Name = "txtDireccionRegistrar";
-            this.txtDireccionRegistrar.Size = new System.Drawing.Size(457, 24);
-            this.txtDireccionRegistrar.TabIndex = 9;
-            this.txtDireccionRegistrar.TextChanged += new System.EventHandler(this.txtTeléfonoRegistrar_TextChanged);
-            // 
-            // txtApellidosRegistrar
-            // 
-            this.txtApellidosRegistrar.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtApellidosRegistrar.Location = new System.Drawing.Point(385, 225);
-            this.txtApellidosRegistrar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtApellidosRegistrar.Name = "txtApellidosRegistrar";
-            this.txtApellidosRegistrar.Size = new System.Drawing.Size(459, 24);
-            this.txtApellidosRegistrar.TabIndex = 8;
-            this.txtApellidosRegistrar.TextChanged += new System.EventHandler(this.txtDirecciónRegistrar_TextChanged);
-            this.txtApellidosRegistrar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtApellidosRegistrar_KeyUp);
-            this.txtApellidosRegistrar.Leave += new System.EventHandler(this.txtApellidosRegistrar_Leave);
-            // 
-            // txtNombresRegistrar
-            // 
-            this.txtNombresRegistrar.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombresRegistrar.Location = new System.Drawing.Point(385, 185);
-            this.txtNombresRegistrar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtNombresRegistrar.Name = "txtNombresRegistrar";
-            this.txtNombresRegistrar.Size = new System.Drawing.Size(459, 24);
-            this.txtNombresRegistrar.TabIndex = 7;
-            this.txtNombresRegistrar.TextChanged += new System.EventHandler(this.txtNombresRegistrar_TextChanged);
-            this.txtNombresRegistrar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtNombresRegistrar_KeyUp);
-            this.txtNombresRegistrar.Leave += new System.EventHandler(this.txtNombresRegistrar_Leave);
             // 
             // label8
             // 
@@ -367,19 +302,6 @@
             this.label3.Text = "Datos Cliente";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
-            // txtCedulaRegistrar
-            // 
-            this.txtCedulaRegistrar.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCedulaRegistrar.Location = new System.Drawing.Point(385, 143);
-            this.txtCedulaRegistrar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtCedulaRegistrar.Name = "txtCedulaRegistrar";
-            this.txtCedulaRegistrar.Size = new System.Drawing.Size(459, 24);
-            this.txtCedulaRegistrar.TabIndex = 0;
-            this.txtCedulaRegistrar.TextChanged += new System.EventHandler(this.txtCédulaRegistrar_TextChanged);
-            this.txtCedulaRegistrar.Leave += new System.EventHandler(this.txtCedulaRegistrar_Leave);
-            this.txtCedulaRegistrar.Validating += new System.ComponentModel.CancelEventHandler(this.txtCedulaRegistrar_Validating);
-            this.txtCedulaRegistrar.Validated += new System.EventHandler(this.txtCedulaRegistrar_Validated);
-            // 
             // tabBuscar
             // 
             this.tabBuscar.Controls.Add(this.panel3);
@@ -395,6 +317,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.btnRefrescar);
             this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.dgtvClientes);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
@@ -403,6 +326,16 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(974, 474);
             this.panel3.TabIndex = 10;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(408, 12);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(105, 28);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Clientes";
             // 
             // dgtvClientes
             // 
@@ -413,16 +346,6 @@
             this.dgtvClientes.RowTemplate.Height = 24;
             this.dgtvClientes.Size = new System.Drawing.Size(968, 411);
             this.dgtvClientes.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(438, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(105, 28);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Clientes";
             // 
             // tabActualizar
             // 
@@ -440,8 +363,7 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.checkBoxCanton);
-            this.groupBox5.Controls.Add(this.btnActualizarCanton);
+            this.groupBox5.Controls.Add(this.label9);
             this.groupBox5.Controls.Add(this.txtCantonActualizar);
             this.groupBox5.Controls.Add(this.checkBoxCorreo);
             this.groupBox5.Controls.Add(this.checkBoxTelefono);
@@ -472,27 +394,6 @@
             this.groupBox5.TabIndex = 2;
             this.groupBox5.TabStop = false;
             this.groupBox5.Enter += new System.EventHandler(this.groupBox5_Enter);
-            // 
-            // checkBoxCanton
-            // 
-            this.checkBoxCanton.AutoSize = true;
-            this.checkBoxCanton.Location = new System.Drawing.Point(125, 424);
-            this.checkBoxCanton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.checkBoxCanton.Name = "checkBoxCanton";
-            this.checkBoxCanton.Size = new System.Drawing.Size(84, 23);
-            this.checkBoxCanton.TabIndex = 40;
-            this.checkBoxCanton.Text = "Cantón";
-            this.checkBoxCanton.UseVisualStyleBackColor = true;
-            // 
-            // btnActualizarCanton
-            // 
-            this.btnActualizarCanton.Location = new System.Drawing.Point(744, 407);
-            this.btnActualizarCanton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnActualizarCanton.Name = "btnActualizarCanton";
-            this.btnActualizarCanton.Size = new System.Drawing.Size(136, 38);
-            this.btnActualizarCanton.TabIndex = 39;
-            this.btnActualizarCanton.Text = "Actualizar";
-            this.btnActualizarCanton.UseVisualStyleBackColor = true;
             // 
             // txtCantonActualizar
             // 
@@ -1073,6 +974,103 @@
             this.label17.Text = "Consultar Cliente";
             this.label17.Click += new System.EventHandler(this.label17_Click);
             // 
+            // txtCantonRegistrar
+            // 
+            this.txtCantonRegistrar.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCantonRegistrar.Location = new System.Drawing.Point(387, 391);
+            this.txtCantonRegistrar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtCantonRegistrar.Name = "txtCantonRegistrar";
+            this.txtCantonRegistrar.Size = new System.Drawing.Size(459, 24);
+            this.txtCantonRegistrar.TabIndex = 16;
+            // 
+            // txtNombresRegistrar
+            // 
+            this.txtNombresRegistrar.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNombresRegistrar.Location = new System.Drawing.Point(385, 185);
+            this.txtNombresRegistrar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtNombresRegistrar.Name = "txtNombresRegistrar";
+            this.txtNombresRegistrar.Size = new System.Drawing.Size(459, 24);
+            this.txtNombresRegistrar.TabIndex = 7;
+            this.txtNombresRegistrar.TextChanged += new System.EventHandler(this.txtNombresRegistrar_TextChanged);
+            this.txtNombresRegistrar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtNombresRegistrar_KeyUp);
+            this.txtNombresRegistrar.Leave += new System.EventHandler(this.txtNombresRegistrar_Leave);
+            // 
+            // txtApellidosRegistrar
+            // 
+            this.txtApellidosRegistrar.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtApellidosRegistrar.Location = new System.Drawing.Point(385, 225);
+            this.txtApellidosRegistrar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtApellidosRegistrar.Name = "txtApellidosRegistrar";
+            this.txtApellidosRegistrar.Size = new System.Drawing.Size(459, 24);
+            this.txtApellidosRegistrar.TabIndex = 8;
+            this.txtApellidosRegistrar.TextChanged += new System.EventHandler(this.txtDirecciónRegistrar_TextChanged);
+            this.txtApellidosRegistrar.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtApellidosRegistrar_KeyUp);
+            this.txtApellidosRegistrar.Leave += new System.EventHandler(this.txtApellidosRegistrar_Leave);
+            // 
+            // txtDireccionRegistrar
+            // 
+            this.txtDireccionRegistrar.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDireccionRegistrar.Location = new System.Drawing.Point(387, 266);
+            this.txtDireccionRegistrar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtDireccionRegistrar.Name = "txtDireccionRegistrar";
+            this.txtDireccionRegistrar.Size = new System.Drawing.Size(457, 24);
+            this.txtDireccionRegistrar.TabIndex = 9;
+            this.txtDireccionRegistrar.TextChanged += new System.EventHandler(this.txtTeléfonoRegistrar_TextChanged);
+            // 
+            // txtTelefonoRegistrar
+            // 
+            this.txtTelefonoRegistrar.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTelefonoRegistrar.Location = new System.Drawing.Point(385, 348);
+            this.txtTelefonoRegistrar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtTelefonoRegistrar.Name = "txtTelefonoRegistrar";
+            this.txtTelefonoRegistrar.Size = new System.Drawing.Size(459, 24);
+            this.txtTelefonoRegistrar.TabIndex = 10;
+            this.txtTelefonoRegistrar.TextChanged += new System.EventHandler(this.txtEmailRegistrar_TextChanged);
+            this.txtTelefonoRegistrar.Leave += new System.EventHandler(this.txtTelefonoRegistrar_Leave);
+            // 
+            // txtCorreoRegistrar
+            // 
+            this.txtCorreoRegistrar.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCorreoRegistrar.Location = new System.Drawing.Point(385, 309);
+            this.txtCorreoRegistrar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtCorreoRegistrar.Name = "txtCorreoRegistrar";
+            this.txtCorreoRegistrar.Size = new System.Drawing.Size(459, 24);
+            this.txtCorreoRegistrar.TabIndex = 14;
+            this.txtCorreoRegistrar.TextChanged += new System.EventHandler(this.txtFechaNacimientoRegistrar_TextChanged);
+            this.txtCorreoRegistrar.Leave += new System.EventHandler(this.txtCorreoRegistrar_Leave);
+            // 
+            // txtCedulaRegistrar
+            // 
+            this.txtCedulaRegistrar.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCedulaRegistrar.Location = new System.Drawing.Point(385, 143);
+            this.txtCedulaRegistrar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtCedulaRegistrar.Name = "txtCedulaRegistrar";
+            this.txtCedulaRegistrar.Size = new System.Drawing.Size(459, 24);
+            this.txtCedulaRegistrar.TabIndex = 0;
+            this.txtCedulaRegistrar.TextChanged += new System.EventHandler(this.checkDireccion_CheckedChanged);
+            this.txtCedulaRegistrar.Validating += new System.ComponentModel.CancelEventHandler(this.txtCedulaRegistrar_Validating);
+            this.txtCedulaRegistrar.Validated += new System.EventHandler(this.txtCedulaRegistrar_Validated);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(155, 423);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(62, 19);
+            this.label9.TabIndex = 39;
+            this.label9.Text = "Cantón";
+            // 
+            // btnRefrescar
+            // 
+            this.btnRefrescar.Location = new System.Drawing.Point(814, 17);
+            this.btnRefrescar.Name = "btnRefrescar";
+            this.btnRefrescar.Size = new System.Drawing.Size(127, 36);
+            this.btnRefrescar.TabIndex = 9;
+            this.btnRefrescar.Text = "Actualizar";
+            this.btnRefrescar.UseVisualStyleBackColor = true;
+            this.btnRefrescar.Click += new System.EventHandler(this.btnRefrescar_Click);
+            // 
             // frmClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1122,20 +1120,14 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnInsertar;
-        private System.Windows.Forms.TextBox txtTelefonoRegistrar;
-        private System.Windows.Forms.TextBox txtDireccionRegistrar;
-        private System.Windows.Forms.TextBox txtApellidosRegistrar;
-        private System.Windows.Forms.TextBox txtNombresRegistrar;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtCedulaRegistrar;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.TextBox txtCorreoRegistrar;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.TextBox txtCorreoActualizar;
         private System.Windows.Forms.TextBox txtTelefonoActualizar;
@@ -1177,15 +1169,21 @@
         private System.Windows.Forms.CheckBox checkBoxNombres;
         private System.Windows.Forms.CheckBox checkBoxCorreo;
         private System.Windows.Forms.CheckBox checkBoxTelefono;
-        private System.Windows.Forms.TextBox txtCantonRegistrar;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgtvClientes;
-        private System.Windows.Forms.CheckBox checkBoxCanton;
-        private System.Windows.Forms.Button btnActualizarCanton;
         private System.Windows.Forms.TextBox txtCantonActualizar;
         private System.Windows.Forms.TextBox txtCantonDarDeBaja;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtCantonRegistrar;
+        private System.Windows.Forms.TextBox txtCorreoRegistrar;
+        private System.Windows.Forms.TextBox txtTelefonoRegistrar;
+        private System.Windows.Forms.TextBox txtDireccionRegistrar;
+        private System.Windows.Forms.TextBox txtApellidosRegistrar;
+        private System.Windows.Forms.TextBox txtNombresRegistrar;
+        private System.Windows.Forms.TextBox txtCedulaRegistrar;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button btnRefrescar;
     }
 }
