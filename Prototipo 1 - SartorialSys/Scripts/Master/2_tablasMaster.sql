@@ -3,8 +3,8 @@ CREATE TABLE proveedores_quito(
     ruc VARCHAR(13) PRIMARY KEY,
     nombre VARCHAR2(100) NOT NULL,
     direccion VARCHAR2(100) NOT NULL,
-    telefono VARCHAR2(10) UNIQUE NOT NULL,
-    email VARCHAR2(100) UNIQUE NOT NULL,
+    telefono VARCHAR2(10) NOT NULL,
+    email VARCHAR2(100) NOT NULL,
     tipo_proveedor VARCHAR2(20) NOT NULL,
     sucursal VARCHAR2(25) NOT NULL
 );
@@ -78,11 +78,11 @@ CREATE TABLE empleados_1 (
     nombres VARCHAR2(100) NOT NULL,
     apellidos VARCHAR2(100) NOT NULL,
     dir_domiciliaria VARCHAR2(100) NOT NULL,
-    email VARCHAR2(100) UNIQUE NOT NULL,
+    email VARCHAR2(100) NOT NULL,
     salario NUMBER(10, 2) NOT NULL,
-    hora_entrada VARCHAR2(5) UNIQUE NOT NULL,
-    hora_almuerzo VARCHAR2(5) UNIQUE NOT NULL,
-    hora_salida VARCHAR2(5) UNIQUE NOT NULL
+    hora_entrada VARCHAR2(5) NOT NULL,
+    hora_almuerzo VARCHAR2(5) NOT NULL,
+    hora_salida VARCHAR2(5) NOT NULL
 );
 alter table empleados_1 add constraint empleados_1_ck check(salario>450);
 

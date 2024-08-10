@@ -59,3 +59,24 @@ START WITH TO_DATE('29-07-2023 11:28:00', 'DD-MM-YYYY HH24:MI:SS')
 NEXT SYSDATE + 15/86400
 AS
 SELECT * FROM credenciales@dbl_master;
+
+CREATE TABLE facturas(
+    num_factura VARCHAR2(12) NOT NULL PRIMARY KEY,
+    cedula_cliente VARCHAR2(10) NOT NULL,
+    cedula_empleado VARCHAR2(10) NOT NULL,
+    fecha_venta DATE NOT NULL,
+    metodo_pago VARCHAR2(15) NOT NULL,
+    estado_pago NUMBER NOT NULL,
+    CONSTRAINT cedula_cliente_fk_facturas FOREIGN KEY (cedula_cliente) REFERENCES clientes_guayaquil(cedula_cli),
+    CONSTRAINT cedula_empleado_fk_facturas FOREIGN KEY (cedula_empleado) REFERENCES empleados_2(cedula_empleado)
+);
+
+CREATE TABLE items(
+    codigo_pedido VARCHAR(10),
+    codigo_producto VARCHAR(10),
+    num_factura VARCHAR2(12) NOT NULL,
+    cantidad NUMBER NOT NULL,
+    CONSTRAINT codigo_pedido_fk FOREIGN KEY (codigo_pedido) REFERENCES pedidos_rep(codigo_ped),
+    CONSTRAINT codigo_producto_fk_items FOREIGN KEY (codigo_producto) REFERENCES productos_rep(codigo_producto),
+    CONSTRAINT numero_factura_fk FOREIGN KEY (num_factura) REFERENCES facturas(num_factura)
+);

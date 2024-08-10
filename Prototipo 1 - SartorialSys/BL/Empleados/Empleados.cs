@@ -23,17 +23,11 @@ namespace Prototipo_1___SartorialSys.Clases
         {
             string sql = "INSERT INTO " + nombreTabla + " (CEDULA_EMPLEADO, NOMBRES, APELLIDOS, DIR_DOMICILIARIA, EMAIL, SALARIO, HORA_ENTRADA,HORA_ALMUERZO,HORA_SALIDA) " +
     "VALUES (:cedula, :nombres, :apellidos, :direccion, :email, :salario, :hora_entrada, :hora_almuerzo, :hora_salida)";
-
             OracleConnection connection = null;
             try
             {
-                // Obtener la instancia del Singleton
                 var dbConnection = OracleDatabaseConnection.Instance;
-
-                // Obtener la conexión
                 connection = dbConnection.GetConnection();
-
-                // Asegurarse de que la conexión esté abierta
                 if (connection.State != System.Data.ConnectionState.Open)
                 {
                     connection.Open();
@@ -42,7 +36,6 @@ namespace Prototipo_1___SartorialSys.Clases
                 // Crear el comando
                 using (var cmd = new OracleCommand(sql, connection))
                 {
-                    // Agregar parámetros a la consulta
                     cmd.Parameters.Add(new OracleParameter("cedula", datosCliente[0]));
                     cmd.Parameters.Add(new OracleParameter("nombres", datosCliente[1]));
                     cmd.Parameters.Add(new OracleParameter("apellidos", datosCliente[2]));
@@ -71,7 +64,6 @@ namespace Prototipo_1___SartorialSys.Clases
             }
             finally
             {
-                // Cerrar la conexión en el bloque finally para asegurarse de que se cierre
                 if (connection != null && connection.State == System.Data.ConnectionState.Open)
                 {
                     connection.Close();
