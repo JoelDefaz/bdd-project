@@ -136,7 +136,6 @@
     <Compile Include="BL\Empleados\Empleados.cs" />
     <Compile Include="BL\Inventario\Inventario.cs" />
     <Compile Include="BL\Administracion\Mensajes.cs" />
-    <Compile Include="BL\Administracion\Parametros.cs" />
     <Compile Include="BL\Productos\Productos.cs" />
     <Compile Include="BL\Administracion\Usuario.cs" />
     <Compile Include="BL\Facturacion\Ventas.cs" />

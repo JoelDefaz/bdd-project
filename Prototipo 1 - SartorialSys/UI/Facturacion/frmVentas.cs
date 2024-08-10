@@ -33,8 +33,8 @@ namespace Prototipo_1___SartorialSys
         {
             InitializeComponent();
             this.permiso = permiso;
-            string iva = "(" + (Convert.ToInt32(Parametros.getIVA()*100)).ToString() + "%):";
-            label8.Text += iva;
+            //string iva = "(" + (Convert.ToInt32(Parametros.getIVA()*100)).ToString() + "%):";
+            //label8.Text += iva;
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -143,7 +143,7 @@ namespace Prototipo_1___SartorialSys
 
         private string getIVA()
         {
-            return (Convert.ToInt32(txtSubtotalRegistrar.Text) * (Parametros.getIVA())).ToString();
+            return "";//(Convert.ToInt32(txtSubtotalRegistrar.Text) * (Parametros.getIVA())).ToString();
         }
 
         private string getSumatoria()
