@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tabClientes = new System.Windows.Forms.TabControl();
+            this.tabProductos = new System.Windows.Forms.TabControl();
             this.tabRegistrar = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label37 = new System.Windows.Forms.Label();
@@ -56,6 +56,8 @@
             this.txtCodigoRegistrar = new System.Windows.Forms.TextBox();
             this.tabMostrar = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnRefrescar = new System.Windows.Forms.Button();
+            this.dgtvProductos = new System.Windows.Forms.DataGridView();
             this.label35 = new System.Windows.Forms.Label();
             this.tabActualizar = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -87,6 +89,7 @@
             this.label20 = new System.Windows.Forms.Label();
             this.tabEliminar = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.label50 = new System.Windows.Forms.Label();
             this.txtStockDarDeBaja = new System.Windows.Forms.TextBox();
             this.txtFechaIngresoDarBaja = new System.Windows.Forms.TextBox();
@@ -112,38 +115,35 @@
             this.btnBuscarDarDeBaja = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
-            this.dgtvProductos = new System.Windows.Forms.DataGridView();
-            this.btnRefrescar = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.tabClientes.SuspendLayout();
+            this.tabProductos.SuspendLayout();
             this.tabRegistrar.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabMostrar.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgtvProductos)).BeginInit();
             this.tabActualizar.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabEliminar.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgtvProductos)).BeginInit();
             this.SuspendLayout();
             // 
-            // tabClientes
+            // tabProductos
             // 
-            this.tabClientes.Controls.Add(this.tabRegistrar);
-            this.tabClientes.Controls.Add(this.tabMostrar);
-            this.tabClientes.Controls.Add(this.tabActualizar);
-            this.tabClientes.Controls.Add(this.tabEliminar);
-            this.tabClientes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabClientes.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabClientes.Location = new System.Drawing.Point(0, 0);
-            this.tabClientes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabClientes.Name = "tabClientes";
-            this.tabClientes.SelectedIndex = 0;
-            this.tabClientes.Size = new System.Drawing.Size(1065, 678);
-            this.tabClientes.TabIndex = 16;
-            this.tabClientes.Enter += new System.EventHandler(this.tabClientes_Enter);
+            this.tabProductos.Controls.Add(this.tabRegistrar);
+            this.tabProductos.Controls.Add(this.tabMostrar);
+            this.tabProductos.Controls.Add(this.tabActualizar);
+            this.tabProductos.Controls.Add(this.tabEliminar);
+            this.tabProductos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabProductos.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabProductos.Location = new System.Drawing.Point(0, 0);
+            this.tabProductos.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabProductos.Name = "tabProductos";
+            this.tabProductos.SelectedIndex = 0;
+            this.tabProductos.Size = new System.Drawing.Size(1065, 678);
+            this.tabProductos.TabIndex = 16;
+            this.tabProductos.Enter += new System.EventHandler(this.tabClientes_Enter);
             // 
             // tabRegistrar
             // 
@@ -462,6 +462,26 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1051, 638);
             this.panel1.TabIndex = 7;
+            // 
+            // btnRefrescar
+            // 
+            this.btnRefrescar.Location = new System.Drawing.Point(25, 18);
+            this.btnRefrescar.Name = "btnRefrescar";
+            this.btnRefrescar.Size = new System.Drawing.Size(127, 36);
+            this.btnRefrescar.TabIndex = 10;
+            this.btnRefrescar.Text = "Actualizar";
+            this.btnRefrescar.UseVisualStyleBackColor = true;
+            this.btnRefrescar.Click += new System.EventHandler(this.btnRefrescar_Click);
+            // 
+            // dgtvProductos
+            // 
+            this.dgtvProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgtvProductos.Location = new System.Drawing.Point(25, 63);
+            this.dgtvProductos.Name = "dgtvProductos";
+            this.dgtvProductos.RowHeadersWidth = 51;
+            this.dgtvProductos.RowTemplate.Height = 24;
+            this.dgtvProductos.Size = new System.Drawing.Size(1021, 575);
+            this.dgtvProductos.TabIndex = 9;
             // 
             // label35
             // 
@@ -844,6 +864,16 @@
             this.groupBox6.TabStop = false;
             this.groupBox6.Enter += new System.EventHandler(this.groupBox6_Enter);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(565, 458);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(136, 54);
+            this.button1.TabIndex = 64;
+            this.button1.Text = "Cancelar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // label50
             // 
             this.label50.AutoSize = true;
@@ -1101,52 +1131,23 @@
             this.label17.TabIndex = 0;
             this.label17.Text = "Consultar Producto";
             // 
-            // dgtvProductos
-            // 
-            this.dgtvProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgtvProductos.Location = new System.Drawing.Point(25, 63);
-            this.dgtvProductos.Name = "dgtvProductos";
-            this.dgtvProductos.RowHeadersWidth = 51;
-            this.dgtvProductos.RowTemplate.Height = 24;
-            this.dgtvProductos.Size = new System.Drawing.Size(1021, 575);
-            this.dgtvProductos.TabIndex = 9;
-            // 
-            // btnRefrescar
-            // 
-            this.btnRefrescar.Location = new System.Drawing.Point(25, 18);
-            this.btnRefrescar.Name = "btnRefrescar";
-            this.btnRefrescar.Size = new System.Drawing.Size(127, 36);
-            this.btnRefrescar.TabIndex = 10;
-            this.btnRefrescar.Text = "Actualizar";
-            this.btnRefrescar.UseVisualStyleBackColor = true;
-            this.btnRefrescar.Click += new System.EventHandler(this.btnRefrescar_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(565, 458);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(136, 54);
-            this.button1.TabIndex = 64;
-            this.button1.Text = "Cancelar";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // frmProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1065, 678);
-            this.Controls.Add(this.tabClientes);
+            this.Controls.Add(this.tabProductos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmProductos";
             this.Text = "frmProductos";
-            this.tabClientes.ResumeLayout(false);
+            this.tabProductos.ResumeLayout(false);
             this.tabRegistrar.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabMostrar.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgtvProductos)).EndInit();
             this.tabActualizar.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
@@ -1157,14 +1158,13 @@
             this.groupBox6.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgtvProductos)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabControl tabClientes;
+        private System.Windows.Forms.TabControl tabProductos;
         private System.Windows.Forms.TabPage tabRegistrar;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label13;

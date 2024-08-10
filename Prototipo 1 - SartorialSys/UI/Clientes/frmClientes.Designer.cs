@@ -781,6 +781,7 @@
             // 
             // tabEliminar
             // 
+            this.tabEliminar.BackColor = System.Drawing.Color.White;
             this.tabEliminar.Controls.Add(this.groupBox6);
             this.tabEliminar.Controls.Add(this.groupBox4);
             this.tabEliminar.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -790,7 +791,6 @@
             this.tabEliminar.Size = new System.Drawing.Size(980, 603);
             this.tabEliminar.TabIndex = 3;
             this.tabEliminar.Text = "Eliminar Cliente";
-            this.tabEliminar.UseVisualStyleBackColor = true;
             // 
             // groupBox6
             // 

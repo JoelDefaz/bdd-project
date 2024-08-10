@@ -15,9 +15,16 @@ namespace Prototipo_1___SartorialSys
 {
     public partial class frmAdministrarUsuarios : Form
     {
+        bool replica = false;
         public frmAdministrarUsuarios()
         {
             InitializeComponent();
+            if (replica)
+            {
+                tabUsuarios.TabPages.Remove(tabRegistrar);
+                tabUsuarios.TabPages.Remove(tabActualizar);
+                tabUsuarios.TabPages.Remove(tabEliminar);
+            }
         }
 
         private void label16_Click(object sender, EventArgs e)
@@ -351,6 +358,95 @@ namespace Prototipo_1___SartorialSys
         private void button1_Click(object sender, EventArgs e)
         {
             tabClientes_Enter(sender, e);
+        }
+
+        private void btnRegistrar_Click(object sender, EventArgs e)
+        {
+            string[] datosUsuario = {
+                txtUsuarioRegistrar.Text,
+                    txtContraseñaRegistrar.Text,
+                    txtCedulaEmpleadoRegistrar.Text,
+                    comboBoxRolRegistrar.Text
+            };
+            Usuario.registrarUsuario(datosUsuario);
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            tabClientes_Enter(sender,e);
+        }
+
+        private void btnBuscarActualizar_Click(object sender, EventArgs e)
+        {
+            string[] datosUsuario = Usuario.buscarUsuario(txtCedulaActualizar.Text);
+
+            txtUsuarioActualizar.Text = datosUsuario[0];
+            txtContraseñaActualizar.Text = datosUsuario[1];
+            comboBoxRolActualizar.Text = datosUsuario[3];
+        }
+
+        private void btnActualizarContraseña_Click_1(object sender, EventArgs e)
+        {
+            if (checkContraseña.Checked)
+            {
+                Usuario.actualizarContraseña(txtContraseñaActualizar.Text, txtUsuarioActualizar.Text);
+                btnBuscarActualizar.PerformClick();
+            }
+        }
+
+        private void btnActualizarRol_Click_1(object sender, EventArgs e)
+        {
+            if (checkBoxRol.Checked)
+            {
+                Usuario.actualizarRol(comboBoxRolActualizar.Text, txtUsuarioActualizar.Text);
+                btnBuscarActualizar.PerformClick();
+            }
+        }
+
+        private void btnBuscarDarDeBaja_Click_1(object sender, EventArgs e)
+        {
+            string[] datosUsuario = Usuario.buscarUsuario(txtCedulaEmpleadoDarDeBaja.Text);
+
+            txtUsuarioDarDeBaja.Text = datosUsuario[0];
+            txtContraseñaDarDeBaja.Text = datosUsuario[1];
+            txtRolDarDeBaja.Text = datosUsuario[3];
+        }
+
+        private void btnCancelar_Click_1(object sender, EventArgs e)
+        {
+            limpiarDarDeBaja();
+        }
+
+        private void btnEliminar_Click_1(object sender, EventArgs e)
+        {
+            if (Usuario.eliminarUsuario(txtUsuarioDarDeBaja.Text))
+            {
+                limpiarDarDeBaja();
+            }
+        }
+
+        private void checkContraseña_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkContraseña.Checked)
+            {
+                txtContraseñaActualizar.ReadOnly = false;
+            }
+            else
+            {
+                txtContraseñaActualizar.ReadOnly = true;
+            }
+        }
+
+        private void checkBoxRol_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (checkBoxRol.Checked)
+            {
+                comboBoxRolActualizar.Enabled = true;
+            }
+            else
+            {
+                comboBoxRolActualizar.Enabled = false;
+            }
         }
     }
 }

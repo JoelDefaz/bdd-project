@@ -7,6 +7,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls.Primitives;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using Oracle.ManagedDataAccess.Client;
 using Prototipo_1___SartorialSys.BL.BD;
@@ -17,9 +19,16 @@ namespace Prototipo_1___SartorialSys.Formularios
 {
     public partial class frmProductos : Form
     {
+        bool replica = false;
         public frmProductos()
         {
             InitializeComponent();
+            if (replica)
+            {
+                tabProductos.TabPages.Remove(tabRegistrar);
+                tabProductos.TabPages.Remove(tabActualizar);
+                tabProductos.TabPages.Remove(tabEliminar);
+            }
         }
 
         private void btnRegistrar_Click(object sender, EventArgs e)

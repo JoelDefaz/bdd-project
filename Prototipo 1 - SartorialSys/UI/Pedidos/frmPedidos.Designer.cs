@@ -30,6 +30,8 @@
         {
             this.tabEliminar = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.txtModeloEli = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.btnEliminar = new FontAwesome.Sharp.IconButton();
             this.btnCancelarEli = new System.Windows.Forms.Button();
             this.txtTotalEli = new System.Windows.Forms.TextBox();
@@ -94,9 +96,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.txtCedulaRegistrar = new System.Windows.Forms.TextBox();
-            this.tabClientes = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPedidos = new System.Windows.Forms.TabControl();
+            this.tabActualizar = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.btnCalcularAtualizar = new FontAwesome.Sharp.IconButton();
             this.txtModeloAct = new System.Windows.Forms.TextBox();
             this.label29 = new System.Windows.Forms.Label();
             this.btnActualizar = new FontAwesome.Sharp.IconButton();
@@ -123,9 +126,6 @@
             this.btnBuscarActualizar = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.btnCalcularAtualizar = new FontAwesome.Sharp.IconButton();
-            this.txtModeloEli = new System.Windows.Forms.TextBox();
-            this.label18 = new System.Windows.Forms.Label();
             this.tabEliminar.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -135,8 +135,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgtvClientes)).BeginInit();
             this.tabRegistrar.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.tabClientes.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabPedidos.SuspendLayout();
+            this.tabActualizar.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
@@ -182,6 +182,25 @@
             this.groupBox5.Size = new System.Drawing.Size(1058, 654);
             this.groupBox5.TabIndex = 3;
             this.groupBox5.TabStop = false;
+            // 
+            // txtModeloEli
+            // 
+            this.txtModeloEli.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtModeloEli.Location = new System.Drawing.Point(379, 263);
+            this.txtModeloEli.Name = "txtModeloEli";
+            this.txtModeloEli.ReadOnly = true;
+            this.txtModeloEli.Size = new System.Drawing.Size(210, 27);
+            this.txtModeloEli.TabIndex = 76;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(56, 274);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(68, 20);
+            this.label18.TabIndex = 75;
+            this.label18.Text = "Modelo:";
             // 
             // btnEliminar
             // 
@@ -862,29 +881,29 @@
             this.txtCedulaRegistrar.Size = new System.Drawing.Size(212, 27);
             this.txtCedulaRegistrar.TabIndex = 0;
             // 
-            // tabClientes
+            // tabPedidos
             // 
-            this.tabClientes.Controls.Add(this.tabRegistrar);
-            this.tabClientes.Controls.Add(this.tabConsultar);
-            this.tabClientes.Controls.Add(this.tabPage1);
-            this.tabClientes.Controls.Add(this.tabEliminar);
-            this.tabClientes.Location = new System.Drawing.Point(12, 12);
-            this.tabClientes.Name = "tabClientes";
-            this.tabClientes.SelectedIndex = 0;
-            this.tabClientes.Size = new System.Drawing.Size(1066, 792);
-            this.tabClientes.TabIndex = 20;
-            this.tabClientes.Enter += new System.EventHandler(this.tabClientes_Enter);
+            this.tabPedidos.Controls.Add(this.tabRegistrar);
+            this.tabPedidos.Controls.Add(this.tabConsultar);
+            this.tabPedidos.Controls.Add(this.tabActualizar);
+            this.tabPedidos.Controls.Add(this.tabEliminar);
+            this.tabPedidos.Location = new System.Drawing.Point(12, 12);
+            this.tabPedidos.Name = "tabPedidos";
+            this.tabPedidos.SelectedIndex = 0;
+            this.tabPedidos.Size = new System.Drawing.Size(1066, 792);
+            this.tabPedidos.TabIndex = 20;
+            this.tabPedidos.Enter += new System.EventHandler(this.tabClientes_Enter);
             // 
-            // tabPage1
+            // tabActualizar
             // 
-            this.tabPage1.Controls.Add(this.groupBox6);
-            this.tabPage1.Controls.Add(this.groupBox3);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(1058, 763);
-            this.tabPage1.TabIndex = 4;
-            this.tabPage1.Text = "ActualizarPedido";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabActualizar.Controls.Add(this.groupBox6);
+            this.tabActualizar.Controls.Add(this.groupBox3);
+            this.tabActualizar.Location = new System.Drawing.Point(4, 25);
+            this.tabActualizar.Name = "tabActualizar";
+            this.tabActualizar.Size = new System.Drawing.Size(1058, 763);
+            this.tabActualizar.TabIndex = 4;
+            this.tabActualizar.Text = "ActualizarPedido";
+            this.tabActualizar.UseVisualStyleBackColor = true;
             // 
             // groupBox6
             // 
@@ -916,6 +935,19 @@
             this.groupBox6.Size = new System.Drawing.Size(1058, 654);
             this.groupBox6.TabIndex = 4;
             this.groupBox6.TabStop = false;
+            // 
+            // btnCalcularAtualizar
+            // 
+            this.btnCalcularAtualizar.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btnCalcularAtualizar.IconColor = System.Drawing.Color.Black;
+            this.btnCalcularAtualizar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnCalcularAtualizar.Location = new System.Drawing.Point(613, 387);
+            this.btnCalcularAtualizar.Name = "btnCalcularAtualizar";
+            this.btnCalcularAtualizar.Size = new System.Drawing.Size(99, 42);
+            this.btnCalcularAtualizar.TabIndex = 77;
+            this.btnCalcularAtualizar.Text = "Calcular";
+            this.btnCalcularAtualizar.UseVisualStyleBackColor = true;
+            this.btnCalcularAtualizar.Click += new System.EventHandler(this.btnCalcularAtualizar_Click);
             // 
             // txtModeloAct
             // 
@@ -1171,44 +1203,12 @@
             this.label9.TabIndex = 0;
             this.label9.Text = "Consultar Pedido";
             // 
-            // btnCalcularAtualizar
-            // 
-            this.btnCalcularAtualizar.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.btnCalcularAtualizar.IconColor = System.Drawing.Color.Black;
-            this.btnCalcularAtualizar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnCalcularAtualizar.Location = new System.Drawing.Point(613, 387);
-            this.btnCalcularAtualizar.Name = "btnCalcularAtualizar";
-            this.btnCalcularAtualizar.Size = new System.Drawing.Size(99, 42);
-            this.btnCalcularAtualizar.TabIndex = 77;
-            this.btnCalcularAtualizar.Text = "Calcular";
-            this.btnCalcularAtualizar.UseVisualStyleBackColor = true;
-            this.btnCalcularAtualizar.Click += new System.EventHandler(this.btnCalcularAtualizar_Click);
-            // 
-            // txtModeloEli
-            // 
-            this.txtModeloEli.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtModeloEli.Location = new System.Drawing.Point(379, 263);
-            this.txtModeloEli.Name = "txtModeloEli";
-            this.txtModeloEli.ReadOnly = true;
-            this.txtModeloEli.Size = new System.Drawing.Size(210, 27);
-            this.txtModeloEli.TabIndex = 76;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(56, 274);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(68, 20);
-            this.label18.TabIndex = 75;
-            this.label18.Text = "Modelo:";
-            // 
             // frmPedidos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1120, 816);
-            this.Controls.Add(this.tabClientes);
+            this.Controls.Add(this.tabPedidos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmPedidos";
@@ -1226,8 +1226,8 @@
             this.tabRegistrar.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.tabClientes.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
+            this.tabPedidos.ResumeLayout(false);
+            this.tabActualizar.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -1295,13 +1295,13 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtCedulaRegistrar;
-        private System.Windows.Forms.TabControl tabClientes;
+        private System.Windows.Forms.TabControl tabPedidos;
         private System.Windows.Forms.TextBox txtModeloRegistrar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtCodigoRegistrar;
         private System.Windows.Forms.Label label48;
         private FontAwesome.Sharp.IconButton btnCalcular;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabActualizar;
         private System.Windows.Forms.GroupBox groupBox6;
         private FontAwesome.Sharp.IconButton btnActualizar;
         private System.Windows.Forms.Button btnCancelarAct;

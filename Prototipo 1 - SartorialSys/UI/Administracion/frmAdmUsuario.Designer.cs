@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.tabClientes = new System.Windows.Forms.TabControl();
+            this.tabUsuarios = new System.Windows.Forms.TabControl();
             this.tabRegistrar = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.comboBoxRolRegistrar = new System.Windows.Forms.ComboBox();
@@ -77,7 +77,7 @@
             this.txtUsuarioDarDeBaja = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            this.tabClientes.SuspendLayout();
+            this.tabUsuarios.SuspendLayout();
             this.tabRegistrar.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabConsultar.SuspendLayout();
@@ -91,26 +91,26 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.tabClientes);
+            this.panel1.Controls.Add(this.tabUsuarios);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(739, 593);
             this.panel1.TabIndex = 0;
             // 
-            // tabClientes
+            // tabUsuarios
             // 
-            this.tabClientes.Controls.Add(this.tabRegistrar);
-            this.tabClientes.Controls.Add(this.tabConsultar);
-            this.tabClientes.Controls.Add(this.tabActualizar);
-            this.tabClientes.Controls.Add(this.tabEliminar);
-            this.tabClientes.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tabClientes.Location = new System.Drawing.Point(0, 11);
-            this.tabClientes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabClientes.Name = "tabClientes";
-            this.tabClientes.SelectedIndex = 0;
-            this.tabClientes.Size = new System.Drawing.Size(739, 582);
-            this.tabClientes.TabIndex = 20;
+            this.tabUsuarios.Controls.Add(this.tabRegistrar);
+            this.tabUsuarios.Controls.Add(this.tabConsultar);
+            this.tabUsuarios.Controls.Add(this.tabActualizar);
+            this.tabUsuarios.Controls.Add(this.tabEliminar);
+            this.tabUsuarios.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tabUsuarios.Location = new System.Drawing.Point(0, 11);
+            this.tabUsuarios.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tabUsuarios.Name = "tabUsuarios";
+            this.tabUsuarios.SelectedIndex = 0;
+            this.tabUsuarios.Size = new System.Drawing.Size(739, 582);
+            this.tabUsuarios.TabIndex = 20;
             // 
             // tabRegistrar
             // 
@@ -235,6 +235,7 @@
             this.btnRegistrar.TabIndex = 11;
             this.btnRegistrar.Text = "Registrar";
             this.btnRegistrar.UseVisualStyleBackColor = true;
+            this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click);
             // 
             // txtCedulaEmpleadoRegistrar
             // 
@@ -287,6 +288,7 @@
             this.button1.TabIndex = 10;
             this.button1.Text = "Actualizar";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // label1
             // 
@@ -352,6 +354,7 @@
             this.btnActualizarRol.TabIndex = 31;
             this.btnActualizarRol.Text = "Actualizar";
             this.btnActualizarRol.UseVisualStyleBackColor = true;
+            this.btnActualizarRol.Click += new System.EventHandler(this.btnActualizarRol_Click_1);
             // 
             // btnActualizarContraseña
             // 
@@ -362,6 +365,7 @@
             this.btnActualizarContraseña.TabIndex = 30;
             this.btnActualizarContraseña.Text = "Actualizar";
             this.btnActualizarContraseña.UseVisualStyleBackColor = true;
+            this.btnActualizarContraseña.Click += new System.EventHandler(this.btnActualizarContraseña_Click_1);
             // 
             // btnBuscarActualizar
             // 
@@ -373,6 +377,7 @@
             this.btnBuscarActualizar.TabIndex = 6;
             this.btnBuscarActualizar.Text = "Buscar";
             this.btnBuscarActualizar.UseVisualStyleBackColor = true;
+            this.btnBuscarActualizar.Click += new System.EventHandler(this.btnBuscarActualizar_Click);
             // 
             // comboBoxRolActualizar
             // 
@@ -400,6 +405,7 @@
             this.checkBoxRol.TabIndex = 28;
             this.checkBoxRol.Text = "Rol:";
             this.checkBoxRol.UseVisualStyleBackColor = true;
+            this.checkBoxRol.CheckedChanged += new System.EventHandler(this.checkBoxRol_CheckedChanged_1);
             // 
             // label7
             // 
@@ -422,6 +428,7 @@
             this.checkContraseña.TabIndex = 26;
             this.checkContraseña.Text = "Contraseña:";
             this.checkContraseña.UseVisualStyleBackColor = true;
+            this.checkContraseña.CheckedChanged += new System.EventHandler(this.checkContraseña_CheckedChanged);
             // 
             // txtContraseñaActualizar
             // 
@@ -513,6 +520,7 @@
             this.btnCancelar.TabIndex = 25;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click_1);
             // 
             // btnBuscarDarDeBaja
             // 
@@ -523,6 +531,7 @@
             this.btnBuscarDarDeBaja.TabIndex = 24;
             this.btnBuscarDarDeBaja.Text = "Buscar";
             this.btnBuscarDarDeBaja.UseVisualStyleBackColor = true;
+            this.btnBuscarDarDeBaja.Click += new System.EventHandler(this.btnBuscarDarDeBaja_Click_1);
             // 
             // btnEliminar
             // 
@@ -533,6 +542,7 @@
             this.btnEliminar.TabIndex = 23;
             this.btnEliminar.Text = "Eliminar";
             this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click_1);
             // 
             // txtRolDarDeBaja
             // 
@@ -630,7 +640,7 @@
             this.Name = "frmAdministrarUsuarios";
             this.Text = "SartorialSys";
             this.panel1.ResumeLayout(false);
-            this.tabClientes.ResumeLayout(false);
+            this.tabUsuarios.ResumeLayout(false);
             this.tabRegistrar.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -651,7 +661,7 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TabControl tabClientes;
+        private System.Windows.Forms.TabControl tabUsuarios;
         private System.Windows.Forms.TabPage tabRegistrar;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox comboBoxRolRegistrar;

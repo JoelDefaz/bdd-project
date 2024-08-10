@@ -17,9 +17,16 @@ namespace Prototipo_1___SartorialSys
 {
     public partial class frmPedidos : Form
     {
+        bool replica = false;
         public frmPedidos()
         {
             InitializeComponent();
+            if (replica)
+            {
+                tabPedidos.TabPages.Remove(tabEliminar);
+                tabPedidos.TabPages.Remove(tabRegistrar);
+                tabPedidos.TabPages.Remove(tabActualizar);
+            }
         }
 
         private void label22_Click(object sender, EventArgs e)
