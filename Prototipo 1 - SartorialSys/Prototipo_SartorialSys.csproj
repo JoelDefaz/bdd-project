@@ -170,6 +170,7 @@
     <Compile Include="UI\Inventario\frmInventario.Designer.cs">
       <DependentUpon>frmInventario.cs</DependentUpon>
     </Compile>
+    <Compile Include="BL\Pedidos\Pedidos.cs" />
     <Compile Include="UI\Productos\frmProductos.cs">
       <SubType>Form</SubType>
     </Compile>
