@@ -218,12 +218,6 @@
     <Compile Include="UI\Administracion\frmAdmUsuario.Designer.cs">
       <DependentUpon>frmAdmUsuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Administracion\frmAdmParametros.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Administracion\frmAdmParametros.Designer.cs">
-      <DependentUpon>frmAdmParametros.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="UI\Auditoria\frmAuditoria.resx">
@@ -261,9 +255,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Administracion\frmAdmUsuario.resx">
       <DependentUpon>frmAdmUsuario.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Administracion\frmAdmParametros.resx">
-      <DependentUpon>frmAdmParametros.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

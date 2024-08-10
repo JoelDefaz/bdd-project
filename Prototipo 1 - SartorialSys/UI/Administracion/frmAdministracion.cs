@@ -30,8 +30,6 @@ namespace Prototipo_1___SartorialSys
 
         private void btnParámetros_Click(object sender, EventArgs e)
         {
-            frmAdmParametros parametros = new frmAdmParametros();
-            parametros.ShowDialog();
         }
 
         private void frmAdministracion_FormClosing(object sender, FormClosingEventArgs e)

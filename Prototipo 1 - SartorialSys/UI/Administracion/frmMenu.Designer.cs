@@ -33,12 +33,11 @@
             this.pnlMenu = new System.Windows.Forms.Panel();
             this.btnAuditoria = new FontAwesome.Sharp.IconButton();
             this.btnEmpleados = new FontAwesome.Sharp.IconButton();
+            this.btnVentas = new FontAwesome.Sharp.IconButton();
             this.btnProductos = new FontAwesome.Sharp.IconButton();
             this.btnAdministracion = new FontAwesome.Sharp.IconButton();
             this.btnProveedores = new FontAwesome.Sharp.IconButton();
-            this.btnVentas = new FontAwesome.Sharp.IconButton();
             this.btnPedidos = new FontAwesome.Sharp.IconButton();
-            this.btnInventario = new FontAwesome.Sharp.IconButton();
             this.btnClientes = new FontAwesome.Sharp.IconButton();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -61,12 +60,11 @@
             this.pnlMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(210)))), ((int)(((byte)(189)))), ((int)(((byte)(165)))));
             this.pnlMenu.Controls.Add(this.btnAuditoria);
             this.pnlMenu.Controls.Add(this.btnEmpleados);
+            this.pnlMenu.Controls.Add(this.btnPedidos);
             this.pnlMenu.Controls.Add(this.btnVentas);
             this.pnlMenu.Controls.Add(this.btnProductos);
             this.pnlMenu.Controls.Add(this.btnAdministracion);
             this.pnlMenu.Controls.Add(this.btnProveedores);
-            this.pnlMenu.Controls.Add(this.btnPedidos);
-            this.pnlMenu.Controls.Add(this.btnInventario);
             this.pnlMenu.Controls.Add(this.btnClientes);
             this.pnlMenu.Controls.Add(this.panel2);
             this.pnlMenu.Dock = System.Windows.Forms.DockStyle.Left;
@@ -85,7 +83,7 @@
             this.btnAuditoria.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.btnAuditoria.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnAuditoria.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAuditoria.Location = new System.Drawing.Point(3, 599);
+            this.btnAuditoria.Location = new System.Drawing.Point(3, 530);
             this.btnAuditoria.Name = "btnAuditoria";
             this.btnAuditoria.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.btnAuditoria.Size = new System.Drawing.Size(213, 60);
@@ -116,6 +114,27 @@
             this.btnEmpleados.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnEmpleados.UseVisualStyleBackColor = true;
             this.btnEmpleados.Click += new System.EventHandler(this.iconButton1_Click);
+            // 
+            // btnVentas
+            // 
+            this.btnVentas.FlatAppearance.BorderSize = 0;
+            this.btnVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVentas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.btnVentas.IconChar = FontAwesome.Sharp.IconChar.CashRegister;
+            this.btnVentas.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
+            this.btnVentas.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnVentas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnVentas.Location = new System.Drawing.Point(3, 464);
+            this.btnVentas.Name = "btnVentas";
+            this.btnVentas.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
+            this.btnVentas.Size = new System.Drawing.Size(213, 60);
+            this.btnVentas.TabIndex = 13;
+            this.btnVentas.Text = " Ventas y Facturación";
+            this.btnVentas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnVentas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnVentas.UseVisualStyleBackColor = true;
+            this.btnVentas.Click += new System.EventHandler(this.btnVentas_Click);
             // 
             // btnProductos
             // 
@@ -148,12 +167,12 @@
             this.btnAdministracion.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.btnAdministracion.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnAdministracion.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAdministracion.Location = new System.Drawing.Point(0, 410);
+            this.btnAdministracion.Location = new System.Drawing.Point(0, 344);
             this.btnAdministracion.Name = "btnAdministracion";
             this.btnAdministracion.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.btnAdministracion.Size = new System.Drawing.Size(213, 60);
             this.btnAdministracion.TabIndex = 14;
-            this.btnAdministracion.Text = " Administración";
+            this.btnAdministracion.Text = "Usuarios";
             this.btnAdministracion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAdministracion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAdministracion.UseVisualStyleBackColor = true;
@@ -180,27 +199,6 @@
             this.btnProveedores.UseVisualStyleBackColor = true;
             this.btnProveedores.Click += new System.EventHandler(this.btnProveedores_Click);
             // 
-            // btnVentas
-            // 
-            this.btnVentas.FlatAppearance.BorderSize = 0;
-            this.btnVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnVentas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.btnVentas.IconChar = FontAwesome.Sharp.IconChar.CashRegister;
-            this.btnVentas.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.btnVentas.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnVentas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVentas.Location = new System.Drawing.Point(3, 533);
-            this.btnVentas.Name = "btnVentas";
-            this.btnVentas.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.btnVentas.Size = new System.Drawing.Size(213, 60);
-            this.btnVentas.TabIndex = 13;
-            this.btnVentas.Text = " Ventas y Facturación";
-            this.btnVentas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnVentas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnVentas.UseVisualStyleBackColor = true;
-            this.btnVentas.Click += new System.EventHandler(this.btnVentas_Click);
-            // 
             // btnPedidos
             // 
             this.btnPedidos.FlatAppearance.BorderSize = 0;
@@ -211,7 +209,7 @@
             this.btnPedidos.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
             this.btnPedidos.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnPedidos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPedidos.Location = new System.Drawing.Point(0, 344);
+            this.btnPedidos.Location = new System.Drawing.Point(0, 410);
             this.btnPedidos.Name = "btnPedidos";
             this.btnPedidos.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
             this.btnPedidos.Size = new System.Drawing.Size(213, 60);
@@ -221,27 +219,6 @@
             this.btnPedidos.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnPedidos.UseVisualStyleBackColor = true;
             this.btnPedidos.Click += new System.EventHandler(this.btnPedidos_Click);
-            // 
-            // btnInventario
-            // 
-            this.btnInventario.FlatAppearance.BorderSize = 0;
-            this.btnInventario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnInventario.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnInventario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.btnInventario.IconChar = FontAwesome.Sharp.IconChar.ClipboardList;
-            this.btnInventario.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(60)))), ((int)(((byte)(60)))));
-            this.btnInventario.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnInventario.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnInventario.Location = new System.Drawing.Point(0, 476);
-            this.btnInventario.Name = "btnInventario";
-            this.btnInventario.Padding = new System.Windows.Forms.Padding(10, 0, 20, 0);
-            this.btnInventario.Size = new System.Drawing.Size(213, 60);
-            this.btnInventario.TabIndex = 11;
-            this.btnInventario.Text = " Inventario";
-            this.btnInventario.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnInventario.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnInventario.UseVisualStyleBackColor = true;
-            this.btnInventario.Click += new System.EventHandler(this.btnInventario_Click);
             // 
             // btnClientes
             // 
@@ -400,7 +377,6 @@
         private FontAwesome.Sharp.IconButton btnAdministracion;
         private FontAwesome.Sharp.IconButton btnVentas;
         private FontAwesome.Sharp.IconButton btnPedidos;
-        private FontAwesome.Sharp.IconButton btnInventario;
         private FontAwesome.Sharp.IconButton btnProductos;
         private FontAwesome.Sharp.IconButton btnProveedores;
         private FontAwesome.Sharp.IconButton btnClientes;

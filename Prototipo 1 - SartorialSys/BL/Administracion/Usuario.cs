@@ -1,35 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Oracle.ManagedDataAccess.Client;
+using Prototipo_1___SartorialSys.BL.BD;
 
 namespace Prototipo_1___SartorialSys.Clases
 {
     internal class Usuario
     {
+        static string nombreTabla = "credenciales";
+        internal static bool actualizarContraseña(string contraseña, string usuario)
+        {
+            string query = "UPDATE " + nombreTabla + " SET contrasenia = :contraseña WHERE usuario = :usuario";
 
-        internal static bool actualizarContraseña(string contraseña, string parametroBusqueda)
-        {/*
-            if (!confirmarAccion("¿Está seguro de actualizar este dato?"))
+            try
             {
-                return false;
-            }
-            using (conn = new SqlConnection(strConn))
-            {
-                conn.Open();
-                strComm = "UPDATE usuarios SET contraseña = '" + contraseña + "' WHERE cedula_empleado = " + parametroBusqueda;
-                using (comm = new SqlCommand(strComm, conn))
+                var dbConnection = OracleDatabaseConnection.Instance;
+                var connection = dbConnection.GetConnection();
+
+                using (var cmd = new OracleCommand(query, connection))
                 {
-                    if (comm.ExecuteNonQuery() == 1)
+                    cmd.Parameters.Add(new OracleParameter("contrasenia", contraseña));
+                    cmd.Parameters.Add(new OracleParameter("usuario", usuario));
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
                     {
-                        Mensajes.emitirMensaje("Contraseña actualizada con éxito");
+                        Mensajes.emitirMensaje("Usuario actualizado correctamente.");
+                        return true;
                     }
                 }
-            }*/
-            return true;
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine($"Error de base de datos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                dbConnection.CloseConnection();
+            }
+            return false;
         }
 
         private static bool confirmarAccion(string mensaje)
@@ -42,74 +63,98 @@ namespace Prototipo_1___SartorialSys.Clases
             return false;
         }
 
-        internal static string[] buscarUsuario(string parametroBusqueda)
-        {/*
-            string[] datosCliente = new string[5];
-            using (conn = new SqlConnection(strConn))
-            {
-                conn.Open();
-                strComm = "SELECT * FROM usuarios WHERE cedula_empleado = '" + parametroBusqueda + "'";
-                using (comm = new SqlCommand(strComm, conn))
-                {
-                    SqlDataReader rdr = comm.ExecuteReader();
-                    rdr.Read();
-                    if (!rdr.HasRows)
-                    {
-                        Mensajes.emitirMensaje("No existe registro");
-                        return datosCliente;
-                    }
-                    else
-                    {
-                        datosCliente[0] = rdr.GetString(0);
-                        datosCliente[1] = rdr.GetString(1);
-                        datosCliente[2] = rdr.GetString(2);
-                        datosCliente[3] = rdr.GetString(3);
-//                        datosCliente[4] = rdr.GetString(4);
-                        return datosCliente;
-                    }
-                }
-            }*/
-            return null;
-        }
+        internal static string[] buscarUsuario(string cedula)
+        {
+            string[] datosUsuarios = new string[4];
+            string query = "SELECT * FROM " + nombreTabla + " WHERE cedula_empleado = '" + cedula + "'";
 
-        internal static bool registrarUsuario(string[] datosUsuario)
-        {/*
-            string usuario = "'" + datosUsuario[0] + "'";
-            string contraseña = "'" + datosUsuario[1] + "'";
-            string cedulaEmpleado = "'" + datosUsuario[2] + "'";
-            string rol = "'" + datosUsuario[3] + "'";
-            using (conn = new SqlConnection(strConn))
+            try
             {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                var connection = dbConnection.GetConnection();
 
-                try
+                using (var cmd = new OracleCommand(query, connection))
                 {
-                    conn.Open();
-                    strComm = "INSERT INTO usuarios VALUES(" + usuario + "," + contraseña + "," + cedulaEmpleado + "," + rol + ",DEFAULT)";
-                    using (comm = new SqlCommand(strComm, conn))
+                    // Usar un adaptador para llenar un DataTable
+                    using (var adapter = new OracleDataAdapter(cmd))
                     {
-                        if (comm.ExecuteNonQuery() == 1)
+                        DataTable clientes = new DataTable();
+                        adapter.Fill(clientes);
+                        if (clientes.Rows.Count > 0)
                         {
-                            Mensajes.emitirMensaje("Usuario registrado con éxito");
-                            return true;
+                            DataRow row = clientes.Rows[0];
+
+                            datosUsuarios[0] = row["usuario"].ToString();
+                            datosUsuarios[1] = row["contrasenia"].ToString();
+                            datosUsuarios[2] = row["cedula_empleado"].ToString();
+                            datosUsuarios[3] = row["rol"].ToString();
                         }
                     }
                 }
-                catch (SqlException ex)
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine($"Error de base de datos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                dbConnection.CloseConnection();
+            }
+            return datosUsuarios;
+        }
+
+        internal static bool registrarUsuario(string[] datosUsuario)
+        {
+            string sql = "INSERT INTO " + nombreTabla + " (usuario, contrasenia, cedula_empleado, rol) " +
+            "VALUES (:usuario, :contrasenia, :cedula_empleado, :rol)";
+
+            OracleConnection connection = null;
+            try
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                connection = dbConnection.GetConnection();
+                if (connection.State != System.Data.ConnectionState.Open)
                 {
-                    // Se captura la excepción específica de SQL Server
-                    if (ex.Number == 2627 || ex.Number == 2601)
+                    connection.Open();
+                }
+
+                // Crear el 
+                using (var cmd = new OracleCommand(sql, connection))
+                {
+                    // Agregar parámetros a la consulta
+                    cmd.Parameters.Add(new OracleParameter("usuario", datosUsuario[0]));
+                    cmd.Parameters.Add(new OracleParameter("contrasenia", datosUsuario[1]));
+                    cmd.Parameters.Add(new OracleParameter("cedula_empleado", datosUsuario[2]));
+                    cmd.Parameters.Add(new OracleParameter("rol", datosUsuario[3]));
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected == 1)
                     {
-                        // Manejar el error de duplicado
-                        Mensajes.emitirMensaje("Usuario ya registrado en el sistema");
-                        return false;
-                    }
-                    else
-                    {
-                        Mensajes.emitirMensaje("Error de base de datos");
-                        return false;
+                        Mensajes.emitirMensaje("Usuario registrado con éxito");
+                        return true;
                     }
                 }
-            }*/
+            }
+            catch (OracleException ex)
+            {
+                Mensajes.emitirMensaje($"Error de base de datos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Mensajes.emitirMensaje($"Error: {ex.Message}");
+            }
+            finally
+            {
+                if (connection != null && connection.State == System.Data.ConnectionState.Open)
+                {
+                    connection.Close();
+                }
+            }
             return false;
         }
 
@@ -136,52 +181,83 @@ namespace Prototipo_1___SartorialSys.Clases
             return true;
         }
 
-        internal static bool actualizarRol(string rol, string parametroBusqueda)
-        {/*
-            if (!confirmarAccion("¿Está seguro de actualizar este dato?"))
+        internal static bool actualizarRol(string rol, string usuario)
+        {
+            string query = "UPDATE " + nombreTabla + " SET rol = :rol WHERE usuario = :usuario";
+
+            try
             {
-                return false;
-            }
-            using (conn = new SqlConnection(strConn))
-            {
-                conn.Open();
-                strComm = "UPDATE usuarios SET rol = '" + rol + "' WHERE cedula_empleado = " + parametroBusqueda;
-                using (comm = new SqlCommand(strComm, conn))
+                var dbConnection = OracleDatabaseConnection.Instance;
+                var connection = dbConnection.GetConnection();
+
+                using (var cmd = new OracleCommand(query, connection))
                 {
-                    if (comm.ExecuteNonQuery() == 1)
+                    cmd.Parameters.Add(new OracleParameter("rol", rol));
+                    cmd.Parameters.Add(new OracleParameter("usuario", usuario));
+
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
                     {
-                        Mensajes.emitirMensaje("Rol actualizado con éxito");
+                        Mensajes.emitirMensaje("Usuario actualizado correctamente.");
+                        return true;
                     }
                 }
-            }*/
-            return true;
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine($"Error de base de datos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                dbConnection.CloseConnection();
+            }
+            return false;
         }
 
-        internal static bool darDeBaja(string parametroBusqueda)
-        {/*
-            if (!estaActivo(parametroBusqueda))
-            {
-                Mensajes.emitirMensaje("Este usuario ya esta dado de baja");
-                return false;
-            }
-            if (!confirmarAccion("¿Está seguro de dar de baja a este usuario?"))
+        internal static bool eliminarUsuario(string usuario)
+        {
+            if (!Mensajes.confirmarAccion("¿Está seguro de eliminar a este usuario?"))
             {
                 return false;
             }
-            using (conn = new SqlConnection(strConn))
+            string query = "DELETE FROM " + nombreTabla + " WHERE usuario = :usuario";
+            try
             {
-                conn.Open();
-                strComm = "UPDATE usuarios SET estado = 0 WHERE cedula_empleado = " + parametroBusqueda;
-
-                using (comm = new SqlCommand(strComm, conn))
+                var dbConnection = OracleDatabaseConnection.Instance;
+                var connection = dbConnection.GetConnection();
+                using (var cmd = new OracleCommand(query, connection))
                 {
-                    if (comm.ExecuteNonQuery() == 1)
+                    cmd.Parameters.Add(new OracleParameter("usuario", usuario));
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected > 0)
                     {
-                        Mensajes.emitirMensaje("Usuario dado de baja con éxito");
+                        Mensajes.emitirMensaje("Cliente eliminado correctamente.");
+                        return true;
                     }
                 }
-            }*/
-            return true;
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine($"Error de base de datos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                // Cerrar la conexión manualmente
+                var dbConnection = OracleDatabaseConnection.Instance;
+                dbConnection.CloseConnection();
+            }
+            return false;
         }
 
         private static bool estaActivo(string parametroBusqueda)
@@ -226,6 +302,11 @@ namespace Prototipo_1___SartorialSys.Clases
                 }
             }*/
             return true;
+        }
+
+        internal static string getNombreTabla()
+        {
+            return nombreTabla;
         }
     }
 }

@@ -142,7 +142,7 @@ namespace Prototipo_1___SartorialSys
         private void btnAdministracion_Click(object sender, EventArgs e)
         {
                 ActivateButton(sender, RGBColor.color1);
-                openFormChild(new frmAdministracion());   
+                openFormChild(new frmAdministrarUsuarios());   
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)

@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Oracle.ManagedDataAccess.Client;
+using Prototipo_1___SartorialSys.BL.BD;
 using Prototipo_1___SartorialSys.Clases;
 
 namespace Prototipo_1___SartorialSys
@@ -60,15 +62,14 @@ namespace Prototipo_1___SartorialSys
 
         private void btnInsertar_Click(object sender, EventArgs e)
         {
-            string[] datosUsuario = { txtUsuarioRegistrar.Text, txtContraseñaRegistrar.Text, txtCedulaEmpleadoRegistrar.Text, (string)comboBoxRolRegistrar.SelectedItem};
+            string[] datosUsuario = { txtUsuarioRegistrar.Text,
+                txtContraseñaRegistrar.Text,
+                txtCedulaEmpleadoRegistrar.Text,
+                comboBoxRolRegistrar.Text};
             if (Usuario.registrarUsuario(datosUsuario))
             {
                 limpiarConsola();
-            }
-            else
-            {
-                Mensajes.emitirMensaje("Verificar datos");
-            }
+            } 
         }
 
         private void limpiarConsola()
@@ -121,7 +122,7 @@ namespace Prototipo_1___SartorialSys
         private void btnBuscarParaActualizar_Click(object sender, EventArgs e)
         {
                 string[] datosUsuario = Usuario.buscarUsuario(txtCedulaActualizar.Text);
-                txtUsuarioActualizar.Text = datosUsuario[0];
+            txtUsuarioActualizar.Text = datosUsuario[0];
                 txtContraseñaActualizar.Text = datosUsuario[1];
                 comboBoxRolActualizar.SelectedIndex = getRol(datosUsuario[3]);
         }
@@ -168,32 +169,12 @@ namespace Prototipo_1___SartorialSys
 
         private void limpiarConsulta()
         {
-            txtCedulaEmpleadoBuscar.Text = "";
-            txtUsuarioBuscar.Text = "";
-            txtContraseñaBuscar.Text = "";
-            txtRolBuscar.Text = "";
-        }
-
-        private void btnBuscarConsultar_Click(object sender, EventArgs e)
-        {
-            txtCedulaEmpleadoBuscar.Text = "1724915770";
-            txtUsuarioBuscar.Text = "PabloH24@";
-            txtContraseñaBuscar.Text = "admin1234";
-            txtRolBuscar.Text = "Gerente";
-        }
-
-        private void btnBuscarEliminar_Click(object sender, EventArgs e)
-        {
-            txtCedulaEmpleadoDarDeBaja.Text = "1724915770";
-            txtUsuarioDarDeBaja.Text = "PabloH24@";
-            txtContraseñaDarDeBaja.Text = "admin1234";
-            txtRolDarDeBaja.Text = "Gerente";
 
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            if (Usuario.darDeBaja(txtCedulaEmpleadoDarDeBaja.Text))
+            if (Usuario.eliminarUsuario(txtUsuarioDarDeBaja.Text))
             {
                 limpiarDarDeBaja();
             }
@@ -212,18 +193,6 @@ namespace Prototipo_1___SartorialSys
             Application.Exit();
         }
 
-        private void checkBoxContraseña_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxContraseña.Checked)
-            {
-                txtContraseñaRegistrar.UseSystemPasswordChar = false;
-            }
-            else
-            {
-                txtContraseñaRegistrar.UseSystemPasswordChar = true;
-            }
-        }
-
         private void label13_Click(object sender, EventArgs e)
         {
 
@@ -231,28 +200,20 @@ namespace Prototipo_1___SartorialSys
 
         private void btnActualizarContraseña_Click(object sender, EventArgs e)
         {
-            if (Usuario.actualizarContraseña(txtContraseñaActualizar.Text, txtCedulaActualizar.Text))
+            if (Usuario.actualizarContraseña(txtContraseñaActualizar.Text, txtUsuarioActualizar.Text))
             {
-                btnBuscarActualizar.PerformClick();
                 checkContraseña.Checked = false;
+                btnBuscarActualizar.PerformClick();
             }
         }
 
         private void btnActualizarRol_Click(object sender, EventArgs e)
         {
-            if (Usuario.actualizarRol(comboBoxRolActualizar.Text, txtCedulaActualizar.Text))
+            if (Usuario.actualizarRol(comboBoxRolActualizar.Text, txtUsuarioActualizar.Text))
             {
                 btnBuscarActualizar.PerformClick();
                 checkBoxRol.Checked = false;
             }
-        }
-
-        private void btnBuscar_Click(object sender, EventArgs e)
-        {
-            string[] datosUsuario = Usuario.buscarUsuario(txtCedulaEmpleadoBuscar.Text);
-            txtUsuarioBuscar.Text = datosUsuario[0];
-            txtContraseñaBuscar.Text = datosUsuario[1];
-            txtRolBuscar.Text = datosUsuario[3];
         }
 
         private void btnBuscarDarDeBaja_Click(object sender, EventArgs e)
@@ -300,18 +261,96 @@ namespace Prototipo_1___SartorialSys
             }
         }
 
-        private void txtCedulaEmpleadoBuscar_Leave(object sender, EventArgs e)
-        {
-            if (txtCedulaEmpleadoBuscar.Text != "")
-            {
-            }
-        }
-
         private void txtCedulaEmpleadoDarDeBaja_Leave(object sender, EventArgs e)
         {
             if (txtCedulaEmpleadoDarDeBaja.Text != "")
             {
             }
+        }
+
+        private void txtContraseñaRegistrar_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtUsuarioRegistrar_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxRolRegistrar_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtCedulaEmpleadoRegistrar_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabConsultar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabClientes_Enter(object sender, EventArgs e)
+        {
+            string query = "SELECT * FROM " + Usuario.getNombreTabla();
+
+            try
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                var connection = dbConnection.GetConnection();
+
+                using (var cmd = new OracleCommand(query, connection))
+                {
+                    // Usar un adaptador para llenar un DataTable
+                    using (var adapter = new OracleDataAdapter(cmd))
+                    {
+                        DataTable clientes = new DataTable();
+                        adapter.Fill(clientes);
+                        dgtvCredenciales.DataSource = clientes;
+                    }
+                }
+            }
+            catch (OracleException ex)
+            {
+                Console.WriteLine($"Error de base de datos: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+            finally
+            {
+                var dbConnection = OracleDatabaseConnection.Instance;
+                dbConnection.CloseConnection();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            tabClientes_Enter(sender, e);
         }
     }
 }
